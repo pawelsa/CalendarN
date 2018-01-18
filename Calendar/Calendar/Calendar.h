@@ -45,7 +45,7 @@ public:
 		BeginYear = aTime->tm_year;
 
 
-		for (int i = aTime->tm_year; i < 2025; i++) {
+		for (int i = aTime->tm_year+1900; i < 2020; i++) {
 
 			YearList.push_back(new Year(i));
 
