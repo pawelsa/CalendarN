@@ -59,6 +59,15 @@ public:
 		NumberOfMonthsDay_Text.setCharacterSize(dim::TextSize_Month);
 
 
+		for (int i = 0; i < 7; i++) {
+
+			NumberOfMonthsDay_Text.setPosition(dim::DayNamesOffset + sf::Vector2f(i*dim::OffestBetweenItems_Month.x, 0));
+			NumberOfMonthsDay_Text.setString(dim::DayNames.at(i));
+
+			window.draw(NumberOfMonthsDay_Text);
+		}
+
+
 		int CountNumberOfDays = 1;
 
 
@@ -69,9 +78,13 @@ public:
 				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
 
 
-					if (Days.at(CountNumberOfDays)->HaveAnyEvent()) {
+					if (Days.at(CountNumberOfDays-1)->HaveAnyEvent()) {
 
 						Item.setFillColor(sf::Color(130, 0, 0));
+					}
+					else {
+
+						Item.setFillColor(sf::Color::Transparent);
 					}
 
 

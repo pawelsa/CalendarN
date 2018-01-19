@@ -14,7 +14,7 @@ int main() {
 	while (window.isOpen())
 	{
 
-		//Calendar *newCalendar = new Calendar();
+		Calendar *newCalendar = new Calendar();
 		Month *newMonth = new Month(5, 2018);
 		//Year *newYear = new Year(2018);
 		

@@ -55,6 +55,7 @@ namespace dim {
 	const int OutlineThickness_Month = 3;
 	const sf::Vector2f OffestBetweenItems_Month = SizeOfItem_Month + sf::Vector2f(OutlineThickness_Month, OutlineThickness_Month);
 	const sf::Vector2f TextOffset_Month = sf::Vector2f(15, 15);
+	const sf::Vector2f DayNamesOffset = sf::Vector2f(300, 60);
 	const int TextSize_Month = 17;
 
 

@@ -59,11 +59,11 @@ public:
 		Item.setOutlineThickness(5);
 		
 
-		sf::Text NumberOfYears;
+		sf::Text NumberOfYears_Text;
 
-		NumberOfYears.setFont(dim::font);
-		NumberOfYears.setCharacterSize(dim::TextSize_Calendar);
-		NumberOfYears.setFillColor(sf::Color::White);
+		NumberOfYears_Text.setFont(dim::font);
+		NumberOfYears_Text.setCharacterSize(dim::TextSize_Calendar);
+		NumberOfYears_Text.setFillColor(sf::Color::White);
 
 
 		int MaxAmountOfItemsOnScreen = (window.getSize().y / dim::SizeOfItem_Calendar.y) - 1;
@@ -78,23 +78,23 @@ public:
 
 			Item.setPosition(position);
 
-			NumberOfYears.setPosition(position + dim::TextOffset_Calendar);
-			NumberOfYears.setString(std::to_string(BeginYear + i));
+			NumberOfYears_Text.setPosition(position + dim::TextOffset_Calendar);
+			NumberOfYears_Text.setString(std::to_string(BeginYear + i));
 
 
 			if (i == 0 || i == MaxAmountOfItemsOnScreen) {
 
-				NumberOfYears.setFillColor(to_alpha);
+				NumberOfYears_Text.setFillColor(to_alpha);
 				Item.setOutlineColor(to_alpha);
 			}
 			else {
 
-				NumberOfYears.setFillColor(sf::Color::White);
+				NumberOfYears_Text.setFillColor(sf::Color::White);
 				Item.setOutlineColor(sf::Color::White);
 			}
 
 			window.draw(Item);
-			window.draw(NumberOfYears);
+			window.draw(NumberOfYears_Text);
 		}
 
 		//	Draws black bar around screen

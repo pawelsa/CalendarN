@@ -13,9 +13,12 @@ public:
 
 
 	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { 
-		Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
-		AddEvent(eventToAdd);
-	
+		
+		if (dayNumber == 5) {
+
+			Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
+			AddEvent(eventToAdd);
+		}
 	
 	
 	};
