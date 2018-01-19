@@ -133,14 +133,14 @@ public:
 			sf::Color to_alpha = year_overview.getOutlineColor();
 			to_alpha.a = 135;
 
-			//year_number.setColor(to_alpha);
+			year_number.setFillColor(to_alpha);
 			year_overview.setOutlineColor(to_alpha);
 		}
 		else if (year_overview.getOutlineColor().a == 135) {
 
 				//	Sets color to basic
 
-			//year_number.setColor(sf::Color::White);
+			year_number.setFillColor(sf::Color::White);
 			year_overview.setOutlineColor(sf::Color::White);
 		}
 
@@ -151,7 +151,7 @@ public:
 	}
 
 
-	bool doTheyIntersect (sf::Vector2f  mPosition) {
+	bool doTheyIntersect_Calendar (sf::Vector2f  mPosition) {
 
 
 		for (int i = 0; i < YearList.size(); i++) {

@@ -28,6 +28,11 @@ public:
 	std::string NameOfDay;
 	int DayNumber;
 
+	int returnDayNumber() {
+
+		return DayNumber;
+	}
+
 	std::vector<std::string> DayNames = { "Monday", "Teusday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
 };

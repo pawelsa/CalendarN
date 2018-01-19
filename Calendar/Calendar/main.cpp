@@ -15,7 +15,7 @@ int main() {
 	{
 
 		Calendar *newCalendar = new Calendar();
-
+		Month *newMonth = new Month("May", 5, 2018, 3);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -28,7 +28,12 @@ int main() {
 
 				sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-				if (newCalendar->doTheyIntersect(mousePosition)) {
+				/*if (newCalendar->doTheyIntersect_Calendar(mousePosition)) {
+
+					std::cout << "TAK!\n";
+				}*/
+
+				if (newMonth->doTheyIntersect_Month(mousePosition)) {
 
 					std::cout << "TAK!\n";
 				}
@@ -39,8 +44,8 @@ int main() {
 
 		window.clear();
 
-		newCalendar->display();
-
+		//newCalendar->display();
+		newMonth->displayMonth();
 		window.display();
 	}
 

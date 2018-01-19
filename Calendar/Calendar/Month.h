@@ -1,8 +1,8 @@
 #pragma once
 #include "Day.h"
-#include <list>
 #include <string.h>
 
+extern sf::RenderWindow window;
 
 class Month
 {
@@ -18,6 +18,7 @@ public:
 		this->Name = nameOfMonth;
 		this->Number = monthNumber;
 		this->NumberOfDaysInMonth = NumberOfDays(monthNumber, year);
+		FirstDayOfMonth = firstDay;
 
 		int Counter = firstDay;
 		
@@ -34,13 +35,106 @@ public:
 		}
 	};
 
+
+	void displayMonth() {
+
+
+		sf::RectangleShape item;
+
+		item.setSize(dim::sizeOfItem_Month);
+		item.setFillColor(sf::Color::Transparent);
+		item.setOutlineThickness(3);
+
+
+		sf::Text NumberOfMonth_Text;
+
+		NumberOfMonth_Text.setFont(dim::font);
+		NumberOfMonth_Text.setFillColor(sf::Color::White);
+		NumberOfMonth_Text.setCharacterSize(17);
+
+
+		int CountNumberOfDays = 1;
+
+
+		for (int Y = 0; Y * 7 <= NumberOfDaysInMonth; Y++) {
+
+			for (int X = 0; (X < 7 && CountNumberOfDays <= NumberOfDaysInMonth); X++) {
+
+				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
+
+
+					//if (/*	Day.at(CountNumberOfDays)->isEvent()	*/) {
+
+						//item.setFillColor(sf::Color(130, 0, 0));
+					//}
+
+
+					sf::Vector2f position = sf::Vector2f(dim::itemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
+						dim::itemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
+
+					item.setPosition(position);
+					NumberOfMonth_Text.setPosition(position + sf::Vector2f(15, 15));
+
+					NumberOfMonth_Text.setString(std::to_string(CountNumberOfDays));
+					CountNumberOfDays++;
+
+					window.draw(item);
+					window.draw(NumberOfMonth_Text);
+				}
+			}
+
+		}
+
+
+	}
+
+
+	bool doTheyIntersect_Month(sf::Vector2f mPosition) {
+
+		sf::RectangleShape item;
+
+		item.setSize(dim::sizeOfItem_Month);
+
+		int CountNumberOfDays = 1;
+
+
+		for (int Y = 0; Y * 7 <= NumberOfDaysInMonth; Y++) {
+
+			for (int X = 0; (X < 7 && CountNumberOfDays <= NumberOfDaysInMonth); X++) {
+
+				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
+
+
+					sf::Vector2f position = sf::Vector2f(dim::itemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
+														dim::itemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
+
+					item.setPosition(position);
+
+					if (item.getGlobalBounds().contains(mPosition)) {
+
+						return true;
+					}
+
+					CountNumberOfDays++;
+				}
+			}
+
+		}
+
+		return false;
+	}
+
+
+
 	~Month();
+
+private:
 
 	std::list<Day*> Days;
 	std::string Name;
 	int NumberOfDaysInMonth;
 	int Number;
-
+	int FirstDayOfMonth;
 
 	int NumberOfDays(int monthNumber, int year)
 	{
