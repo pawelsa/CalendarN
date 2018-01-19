@@ -69,10 +69,10 @@ public:
 				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
 
 
-					//if (/*	Day.at(CountNumberOfDays)->isEvent()	*/) {
+					if (Days.at(CountNumberOfDays)->HaveAnyEvent()) {
 
-						//Item.setFillColor(sf::Color(130, 0, 0));
-					//}
+						Item.setFillColor(sf::Color(130, 0, 0));
+					}
 
 
 					sf::Vector2f position = sf::Vector2f(dim::ItemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
@@ -136,7 +136,7 @@ public:
 
 private:
 
-	std::list<Day*> Days;
+	std::vector<Day*> Days;
 	const std::string Name;
 	const int NumberOfDaysInMonth;
 	const int Number;

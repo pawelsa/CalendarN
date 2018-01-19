@@ -12,7 +12,13 @@ class Day
 public:
 
 
-	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { };
+	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { 
+		Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
+		AddEvent(eventToAdd);
+	
+	
+	
+	};
 
 
 	~Day() { }
@@ -35,7 +41,12 @@ public:
 		auto tempList = this->EventList;
 		try
 		{
-			tempList.remove(eventToRemove);
+			//std::vector<int> vec;
+			//// .. put in some values ..
+			//int int_to_remove = n;
+			//vec.erase(std::remove(vec.begin(), vec.end(), int_to_remove), vec.end());
+
+			tempList.erase(std::remove(tempList.begin(), tempList.end(), eventToRemove), tempList.end());
 			this->EventList = tempList;
 		}
 		catch (const std::exception& ex)
