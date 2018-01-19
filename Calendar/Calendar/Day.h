@@ -12,11 +12,7 @@ class Day
 public:
 
 
-	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber)
-	{/*
-		this->NameOfDay = dim::DayNames.at(dayNumber);
-		this->DayNumber = dayNumber;*/
-	};
+	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { };
 
 
 	~Day() { }
@@ -48,10 +44,18 @@ public:
 		}
 	}
 
+	bool HaveAnyEvent()
+	{
+		if (EventList.size() == 0)
+			return false;
+		else
+			return true;
+	};
+
 private:
 
 
-	std::list<Event> EventList;
+	std::vector<Event> EventList;
 
 	const std::string NameOfDay;
 	const int DayNumber;
