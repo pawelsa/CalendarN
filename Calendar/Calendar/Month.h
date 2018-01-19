@@ -18,7 +18,9 @@ public:
 		this->Name = nameOfMonth;
 		this->Number = monthNumber;
 		this->NumberOfDaysInMonth = NumberOfDays(monthNumber, year);
+
 		int Counter = firstDay;
+		
 		for (int i = 0; i < NumberOfDaysInMonth; i++)
 		{
 			Day* dayToAdd = new Day(Counter);

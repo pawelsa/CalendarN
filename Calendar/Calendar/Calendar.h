@@ -45,7 +45,7 @@ public:
 		BeginYear = aTime->tm_year;
 
 
-		for (int i = aTime->tm_year+1900; i < 2020; i++) {
+		for (int i = BeginYear+1899; i < 2020; i++) {
 
 			YearList.push_back(new Year(i));
 
@@ -91,6 +91,10 @@ public:
 		sf::Vector2f window_size = sf::Vector2f(window.getSize().x, window.getSize().y);
 		int maxItems = window_size.y / dim::sizeOfItem_Year.y;
 
+		if (YearList.size() < maxItems) {
+
+			maxItems = YearList.size();
+		}
 
 		int i;
 
@@ -144,6 +148,26 @@ public:
 		window.draw(year_number);
 
 		window.draw(BlackOutliner);		//have to be the last
+	}
+
+
+	bool doTheyIntersect (sf::Vector2f  mPosition) {
+
+
+		for (int i = 0; i < YearList.size(); i++) {
+
+
+			year_overview.setPosition(dim::itemOffset_Year + sf::Vector2f(0, i * (dim::sizeOfItem_Year.y + 20)));		//20 - distance between squares
+
+			if (year_overview.getGlobalBounds().contains(mPosition)) {
+
+				return true;
+			}
+
+		}
+
+
+		return false;
 	}
 
 
