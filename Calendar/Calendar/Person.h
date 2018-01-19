@@ -10,4 +10,12 @@ public:
 		this->FirstName = lastname;
 	}
 	~Person() {};
+
+	bool operator == (const Person& other) const
+	{
+		if ((this->FirstName == other.FirstName) && (this->LastName == other.LastName))
+			return true;
+
+		return false;
+	}
 };
