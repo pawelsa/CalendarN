@@ -19,9 +19,11 @@ public:
 
 		for (int i = 0; i < 12; i++)
 		{
-			auto current = DayNumber(1, i, mYear);
 
-			Month* monthToAdd = new Month(MonthNames.at(i), i, mYear, current);
+			//Commented means - mved to month
+			//auto current = DayNumber(1, i, mYear);
+
+			Month* monthToAdd = new Month(i, mYear/*, current*/);
 			Months.push_back(monthToAdd);
 
 		}
@@ -30,21 +32,83 @@ public:
 	}
 
 
+	void displayYear() {
 
-	int returnYear() {
+		sf::RectangleShape item;
 
-		return YearNumber;
+		item.setSize(dim::SizeOfItem_Year);
+		item.setFillColor(sf::Color::Transparent);
+		item.setOutlineThickness(dim::OutlineThickness_Year);
+		item.setOutlineColor(sf::Color::White);
+
+
+		sf::Text NumberOfMonths_Text;
+
+		NumberOfMonths_Text.setFont(dim::font);
+		NumberOfMonths_Text.setFillColor(sf::Color::White);
+		NumberOfMonths_Text.setCharacterSize(dim::TextSize_Year);
+
+
+		for (int Y = 0; Y < 3; Y++) {
+
+			for (int X = 0; X < 4; X++) {
+
+				sf::Vector2f position = dim::ItemOffset_Year;
+				position += sf::Vector2f(X*dim::OffsetBetweenItems_Year.x, Y*dim::OffsetBetweenItems_Year.y);
+
+				item.setPosition(position);
+				NumberOfMonths_Text.setPosition(position + dim::TextOffset_Year);
+
+				NumberOfMonths_Text.setString(dim::MonthNames.at(Y * 4 + X));
+
+				window.draw(item);
+				window.draw(NumberOfMonths_Text);
+			}
+
+		}
+
 	}
+
+
+	bool doTheyIntersect_Year(sf::Vector2f mPosition) {
+
+		sf::RectangleShape item;
+
+		item.setSize(dim::SizeOfItem_Year);
+
+
+		for (int Y = 0; Y < 3; Y++) {
+
+			for (int X = 0; X < 4; X++) {
+
+				sf::Vector2f position = dim::ItemOffset_Year;
+				position += sf::Vector2f(X*dim::OffsetBetweenItems_Year.x, Y*dim::OffsetBetweenItems_Year.y);
+
+				item.setPosition(position);
+
+				if (item.getGlobalBounds().contains(mPosition)) {
+
+					return true;
+				}
+
+			}
+
+		}
+
+		return false;
+
+	}
+
+
 
 private:
 
-	sf::Text year_number;				//Number in square
 
 	const int YearNumber;
 
 	std::list<Month*> Months;
 
-
+	/*	moved to month
 	int DayNumber(int day, int month, int year)
 	{
 
@@ -54,6 +118,5 @@ private:
 		return (year + year / 4 - year / 100 +
 			year / 400 + t[month-1] + day) % 7;
 	}
-
-	std::vector<std::string> MonthNames = { "January", "February", "March", "April", "May", "June", "July", "August" , "September" , "October" , "November" , "December" };
+*/
 };

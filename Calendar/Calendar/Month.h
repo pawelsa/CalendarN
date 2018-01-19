@@ -7,25 +7,31 @@ extern sf::RenderWindow window;
 class Month
 {
 public:
-	Month() {};
-	Month(std::string nameOfMonth)
-	{
-		this->Name = nameOfMonth;
-	};
 
-	Month(std::string nameOfMonth, int monthNumber, int year, int firstDay)
+	/*
+	Month(int monthNumber): Name(dim::MonthNames.at(monthNumber)), Number(monthNumber)
 	{
-		this->Name = nameOfMonth;
+	};
+	*/
+
+	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber),
+		NumberOfDaysInMonth(NumberOfDays(monthNumber, year)), FirstDayOfMonth(DayNumber(1, monthNumber, year))
+	{
+		/*
+		this->Name = dim::MonthNames.at(monthNumber);
 		this->Number = monthNumber;
 		this->NumberOfDaysInMonth = NumberOfDays(monthNumber, year);
-		FirstDayOfMonth = firstDay;
+		FirstDayOfMonth = DayNumber(1, monthNumber, year);*/
 
-		int Counter = firstDay;
-		
+		int Counter = FirstDayOfMonth;
+
+
 		for (int i = 0; i < NumberOfDaysInMonth; i++)
 		{
 			Day* dayToAdd = new Day(Counter);
+
 			Counter++;
+
 			if (Counter == 7)
 			{
 				Counter = 0;
@@ -39,18 +45,18 @@ public:
 	void displayMonth() {
 
 
-		sf::RectangleShape item;
+		sf::RectangleShape Item;
 
-		item.setSize(dim::sizeOfItem_Month);
-		item.setFillColor(sf::Color::Transparent);
-		item.setOutlineThickness(3);
+		Item.setSize(dim::SizeOfItem_Month);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineThickness(dim::OutlineThickness_Month);
 
 
-		sf::Text NumberOfMonth_Text;
+		sf::Text NumberOfMonthsDay_Text;
 
-		NumberOfMonth_Text.setFont(dim::font);
-		NumberOfMonth_Text.setFillColor(sf::Color::White);
-		NumberOfMonth_Text.setCharacterSize(17);
+		NumberOfMonthsDay_Text.setFont(dim::font);
+		NumberOfMonthsDay_Text.setFillColor(sf::Color::White);
+		NumberOfMonthsDay_Text.setCharacterSize(dim::TextSize_Month);
 
 
 		int CountNumberOfDays = 1;
@@ -65,21 +71,21 @@ public:
 
 					//if (/*	Day.at(CountNumberOfDays)->isEvent()	*/) {
 
-						//item.setFillColor(sf::Color(130, 0, 0));
+						//Item.setFillColor(sf::Color(130, 0, 0));
 					//}
 
 
-					sf::Vector2f position = sf::Vector2f(dim::itemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
-						dim::itemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
+					sf::Vector2f position = sf::Vector2f(dim::ItemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
+						dim::ItemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
 
-					item.setPosition(position);
-					NumberOfMonth_Text.setPosition(position + sf::Vector2f(15, 15));
+					Item.setPosition(position);
+					NumberOfMonthsDay_Text.setPosition(position + dim::TextOffset_Month);
 
-					NumberOfMonth_Text.setString(std::to_string(CountNumberOfDays));
+					NumberOfMonthsDay_Text.setString(std::to_string(CountNumberOfDays));
 					CountNumberOfDays++;
 
-					window.draw(item);
-					window.draw(NumberOfMonth_Text);
+					window.draw(Item);
+					window.draw(NumberOfMonthsDay_Text);
 				}
 			}
 
@@ -91,9 +97,9 @@ public:
 
 	bool doTheyIntersect_Month(sf::Vector2f mPosition) {
 
-		sf::RectangleShape item;
+		sf::RectangleShape Item;
 
-		item.setSize(dim::sizeOfItem_Month);
+		Item.setSize(dim::SizeOfItem_Month);
 
 		int CountNumberOfDays = 1;
 
@@ -105,12 +111,12 @@ public:
 				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
 
 
-					sf::Vector2f position = sf::Vector2f(dim::itemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
-														dim::itemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
+					sf::Vector2f position = sf::Vector2f(dim::ItemOffset_Month.x + X * (dim::OffestBetweenItems_Month.x),
+														dim::ItemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
 
-					item.setPosition(position);
+					Item.setPosition(position);
 
-					if (item.getGlobalBounds().contains(mPosition)) {
+					if (Item.getGlobalBounds().contains(mPosition)) {
 
 						return true;
 					}
@@ -131,10 +137,10 @@ public:
 private:
 
 	std::list<Day*> Days;
-	std::string Name;
-	int NumberOfDaysInMonth;
-	int Number;
-	int FirstDayOfMonth;
+	const std::string Name;
+	const int NumberOfDaysInMonth;
+	const int Number;
+	const int FirstDayOfMonth;
 
 	int NumberOfDays(int monthNumber, int year)
 	{
@@ -193,5 +199,18 @@ private:
 		// December
 		if (monthNumber == 11)
 			return (31);
+	}
+
+
+
+
+	int DayNumber(int day, int month, int year)
+	{
+
+		static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1,
+			4, 6, 2, 4 };
+		year -= month < 3;
+		return (year + year / 4 - year / 100 +
+			year / 400 + t[month - 1] + day) % 7;
 	}
 };

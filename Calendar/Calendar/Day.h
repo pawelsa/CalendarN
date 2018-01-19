@@ -12,23 +12,15 @@ class Day
 public:
 
 
-
-	Day() {};
-	Day(int dayNumber)
-	{
-		this->NameOfDay = DayNames.at(dayNumber);
-		this->DayNumber = dayNumber;
+	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber)
+	{/*
+		this->NameOfDay = dim::DayNames.at(dayNumber);
+		this->DayNumber = dayNumber;*/
 	};
 
 
 	~Day() { }
 
-	std::list<Event> EventList;
-
-	std::string NameOfDay;
-	int DayNumber;
-
-	std::vector<std::string> DayNames = { "Monday", "Tjuzdej", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
 	void AddEvent(Event eventToAdd)
 	{
@@ -55,4 +47,12 @@ public:
 			std::cout << "error occured durning removing event" << ex.what() << std::endl;
 		}
 	}
+
+private:
+
+
+	std::list<Event> EventList;
+
+	const std::string NameOfDay;
+	const int DayNumber;
 };
