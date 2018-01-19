@@ -44,5 +44,11 @@
     <ClInclude Include="Dimensions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LongTermEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeriodicEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,4 +22,12 @@ public:
 
 	}
 
+	bool operator ==(const Event& other) const
+	{
+		if (this->Description == other.Description && this->StartingTime == other.StartingTime && this->EndingTime == other.EndingTime && this->Man == other.Man)
+			return true;
+
+		return false;
+	}
+
 };
