@@ -8,7 +8,7 @@ class Event {
 	Person Man;
 
 public:
-
+	Event() {};
 	Event(int startingtime, int endingtime, std::string description, Person man)
 	{
 		this->StartingTime = startingtime;
