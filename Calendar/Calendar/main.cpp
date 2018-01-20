@@ -15,9 +15,9 @@ int main() {
 	{
 
 		Calendar *newCalendar = new Calendar();
-		Month *newMonth = new Month(5, 2018);
+		//Month *newMonth = new Month(5, 2018);
 		//Year *newYear = new Year(2018);
-		
+		Day *newDay = new Day(5);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -52,8 +52,9 @@ int main() {
 		window.clear();
 
 		//newCalendar->display_Calendar();
-		newMonth->displayMonth();
+		//newMonth->displayMonth();
 		//newYear->displayYear();
+		newDay->display_Day();
 
 		window.display();
 	}

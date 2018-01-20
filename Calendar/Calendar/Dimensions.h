@@ -58,5 +58,19 @@ namespace dim {
 	const sf::Vector2f DayNamesOffset = sf::Vector2f(300, 60);
 	const int TextSize_Month = 17;
 
+	/*			Day class												*/
+
+	const sf::Vector2f SizeOfItem_Day = sf::Vector2f(800, 40);
+	const sf::Vector2f NoEventsTextPosition_Day = sf::Vector2f(500, 200);
+	const sf::Vector2f ItemOffset_Day = sf::Vector2f(240, 150);
+	const sf::Vector2f OffsetBetweenItems_Day = sf::Vector2f(0, 45);
+	const sf::Vector2f TextOffset_Day = sf::Vector2f(5, 5);
+	const sf::Vector2f TextNameEventOffset_Day = sf::Vector2f(200, 0);
+	const int NoEventTextSize_Day = 40;
+	const int EventTextSize_Day = 25;
+
+
+
+
 
 }

@@ -5,7 +5,8 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
+
+extern sf::RenderWindow window;
 
 class Day
 {
@@ -18,6 +19,8 @@ public:
 
 			Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
 			AddEvent(eventToAdd);
+			Event eventToAd = Event(10, 11, "test1", Person("ee", "bb"));
+			AddEvent(eventToAd);
 		}
 	
 	
@@ -65,6 +68,62 @@ public:
 		else
 			return true;
 	};
+
+
+	void display_Day() {
+
+		sf::Text EventName;
+		EventName.setPosition(dim::NoEventsTextPosition_Day);
+		EventName.setFont(dim::font);
+		EventName.setCharacterSize(dim::NoEventTextSize_Day);
+		EventName.setFillColor(sf::Color::White);
+
+		if (EventList.empty()) {
+
+			EventName.setString("No events");
+
+			window.draw(EventName);
+		}
+		else {
+
+			//EventName.setString()
+
+			EventName.setCharacterSize(dim::EventTextSize_Day);
+			EventName.setFillColor(sf::Color::Black);
+
+			sf::RectangleShape Item;
+
+			Item.setSize(dim::SizeOfItem_Day);
+			Item.setFillColor(sf::Color::Green);
+
+			sf::Text EventTime;
+
+			EventTime.setFont(dim::font);
+			EventTime.setCharacterSize(dim::EventTextSize_Day);
+			EventTime.setFillColor(sf::Color::Black);
+
+			sf::Vector2f position;
+
+			for (int i = 0; i < EventList.size(); i++) {
+
+				position = dim::ItemOffset_Day + sf::Vector2f(0, i*dim::OffsetBetweenItems_Day.y);
+
+				Item.setPosition(position);
+				EventTime.setPosition(position + dim::TextOffset_Day);
+				EventName.setPosition(position + dim::TextOffset_Day + dim::TextNameEventOffset_Day);
+
+				EventTime.setString(EventList.at(i).DurationDescription());
+				EventName.setString(EventList.at(i).EventDescription());
+
+				window.draw(Item);
+				window.draw(EventTime);
+				window.draw(EventName);
+			}
+
+		}
+
+	}
+
 
 private:
 
