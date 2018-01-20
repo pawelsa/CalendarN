@@ -40,5 +40,13 @@ public:
 		return Description;
 	}
 
+	int GetStartingTime()
+	{
+		return StartingTime;
+	}
 
+	int GetEndingTime()
+	{
+		return EndingTime;
+	}
 };
