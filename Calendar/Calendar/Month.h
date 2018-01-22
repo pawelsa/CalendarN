@@ -83,20 +83,10 @@ class Month
 
 public:
 
-	/*
-	Month(int monthNumber): Name(dim::MonthNames.at(monthNumber)), Number(monthNumber)
-	{
-	};
-	*/
 
 	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber), // monthNumber+1??
 		NumberOfDaysInMonth(NumberOfDays(monthNumber, year)), FirstDayOfMonth(DayNumber(1, monthNumber+1, year))
 	{
-		/*
-		this->Name = dim::MonthNames.at(monthNumber);
-		this->Number = monthNumber;
-		this->NumberOfDaysInMonth = NumberOfDays(monthNumber, year);
-		FirstDayOfMonth = DayNumber(1, monthNumber, year);*/
 
 		int Counter = FirstDayOfMonth;
 
@@ -183,7 +173,7 @@ public:
 	}
 
 
-	bool doTheyIntersect_Month(sf::Vector2f mPosition) {
+	Day* doTheyIntersect_Month(sf::Vector2f mPosition) {
 
 		sf::RectangleShape Item;
 
@@ -206,7 +196,7 @@ public:
 
 					if (Item.getGlobalBounds().contains(mPosition)) {
 
-						return true;
+						return Days.at(CountNumberOfDays);
 					}
 
 					CountNumberOfDays++;
@@ -215,7 +205,7 @@ public:
 
 		}
 
-		return false;
+		return NULL;
 	}
 
 	~Month() {};

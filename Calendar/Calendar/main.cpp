@@ -1,4 +1,4 @@
-#include "Calendar.h"
+#include "Controller.h"
 
 
 
@@ -8,16 +8,12 @@
 
 int main() {
 
-
+	Controller *newController = new Controller;
 
 
 	while (window.isOpen())
 	{
 
-		//Calendar *newCalendar = new Calendar();
-		//Month *newMonth = new Month(5, 2018);
-		//Year *newYear = new Year(2018);
-		Day *newDay = new Day(5);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -30,31 +26,24 @@ int main() {
 
 				sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
-				/*if (newCalendar->doTheyIntersect_Calendar(mousePosition)) {
+				newController->intersection(mousePosition);
 
-					std::cout << "TAK!\n";
-				}*/
-
-				/*if (newMonth->doTheyIntersect_Month(mousePosition)) {
-
-					std::cout << "TAK!\n";
-				}*/
-
-				/*if (newYear->doTheyIntersect_Year(mousePosition)) {
-
-					std::cout << "TAK!\n";
-				}*/
 			}
 
+			if (event.type == sf::Event::KeyPressed)
+			{
+				if (event.key.code == sf::Keyboard::Escape)
+				{
+
+					newController->moveToLastScreen();
+				}
+			}
 
 		}
 
 		window.clear();
 
-		//newCalendar->display_Calendar();
-		//newMonth->displayMonth();
-		//newYear->displayYear();
-		newDay->display_Day();
+		newController->display();
 
 		window.display();
 	}

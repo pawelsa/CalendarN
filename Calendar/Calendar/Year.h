@@ -3,14 +3,13 @@
 #include <iostream>
 #include "Dimensions.h"
 #include "Month.h"
-#include <list>
 
 extern sf::RenderWindow window;
 
 class Year {
 
 	const int YearNumber;
-	std::list<Month*> Months;
+	std::vector<Month*> Months;
 
 public:
 	Year(int mYear) :YearNumber(mYear) {
@@ -61,7 +60,7 @@ public:
 
 	}
 
-	bool doTheyIntersect_Year(sf::Vector2f mPosition) {
+	Month* doTheyIntersect_Year(sf::Vector2f mPosition) {
 
 		sf::RectangleShape item;
 
@@ -78,10 +77,10 @@ public:
 
 				if (item.getGlobalBounds().contains(mPosition)) {
 
-					return true;
+					return Months.at(Y * 4 + X);
 				}
 			}
 		}
-		return false;
+		return NULL;
 	}	
 };

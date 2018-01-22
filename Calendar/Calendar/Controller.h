@@ -19,10 +19,9 @@ public:
 
 	}
 
-	display() {
+	void display() {
 
 		if (ActualCalendar) {
-
 
 			if (ActualYear) {
 
@@ -30,19 +29,76 @@ public:
 
 					if (ActualDay) {
 
-						display_DAy()
+						ActualDay->display_Day();
+						return;
 					}
 
-					displayMonth()
+					ActualMonth->displayMonth();
+					return;
 				}
-				displayYear()
-			}
-			displayCalendar()
-		}
 
+				ActualYear->displayYear();
+				return;
+			}
+
+			ActualCalendar->display_Calendar();
+			return;
+		}
 
 	}
 
 
+	void intersection(sf::Vector2f mousePos) {
 
+		if (ActualCalendar) {
+
+			if (ActualYear) {
+
+				if (ActualMonth) {
+
+					if (ActualDay) {
+
+						//ActualDay->doTheyIntersect_Day(mousePos);
+					}
+
+					ActualDay = ActualMonth->doTheyIntersect_Month(mousePos);
+					return;
+				}
+
+				ActualMonth = ActualYear->doTheyIntersect_Year(mousePos);
+				return;
+			}
+
+			ActualYear = ActualCalendar->doTheyIntersect_Calendar(mousePos);
+			return;
+
+		}
+
+	}
+
+	void moveToLastScreen() {
+
+		if (ActualCalendar) {
+
+			if (ActualYear) {
+
+				if (ActualMonth) {
+
+					if (ActualDay) {
+
+						ActualDay = NULL;
+						return;
+					}
+
+					ActualMonth = NULL;
+					return;
+				}
+
+				ActualYear = NULL;
+				return;
+			}
+
+		}
+
+	}
 };
