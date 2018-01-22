@@ -14,7 +14,7 @@ public:
 	};
 	*/
 
-	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber),
+	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber), // monthNumber+1??
 		NumberOfDaysInMonth(NumberOfDays(monthNumber, year)), FirstDayOfMonth(DayNumber(1, monthNumber, year))
 	{
 		/*

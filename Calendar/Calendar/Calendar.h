@@ -96,7 +96,7 @@ public:
 			window.draw(Item);
 			window.draw(NumberOfYears_Text);
 		}
-
+		
 		//	Draws black bar around screen
 
 		sf::Vector2f SizeOfBlackOutliner = (sf::Vector2f) dim::WindowSize - sf::Vector2f(2 * dim::ThicknessOfBlackOutliner, 2*dim::ThicknessOfBlackOutliner);
@@ -108,6 +108,17 @@ public:
 		Item.setFillColor(sf::Color::Transparent);
 
 		window.draw(Item);
+
+		//Konrad's button xD
+		sf::RectangleShape Button;
+
+		Button.setSize(dim::SizeOfButton);
+		Button.setFillColor(sf::Color::Yellow);
+		Button.setOutlineThickness(5);
+		Button.setPosition(dim::ButtonOffset);
+		Button.setOutlineColor(sf::Color::Blue);
+
+		window.draw(Button);
 	}
 
 
