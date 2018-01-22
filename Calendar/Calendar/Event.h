@@ -27,6 +27,11 @@ public:
 		return false;
 	}
 
+	bool operator < (const Event& other) const
+	{
+		return (this->StartingTime < other.StartingTime);
+	}
+
 
 	std::string DurationDescription() {
 
