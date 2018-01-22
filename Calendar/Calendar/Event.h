@@ -9,6 +9,7 @@ class Event {
 
 public:
 	Event() {};
+
 	Event(int startingtime, int endingtime, std::string description, Person man)
 	{
 		this->StartingTime = startingtime;
@@ -31,7 +32,6 @@ public:
 	{
 		return (this->StartingTime < other.StartingTime);
 	}
-
 
 	std::string DurationDescription() {
 

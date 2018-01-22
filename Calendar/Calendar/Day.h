@@ -10,6 +10,30 @@ extern sf::RenderWindow window;
 
 class Day
 {
+private:
+	bool IsHourFree(Event eventToAdd)
+	{
+		for (auto &temp : EventList)
+		{
+			auto startingTime = temp.GetStartingTime();
+			auto endingTime = temp.GetEndingTime();
+
+			if ((eventToAdd.GetStartingTime() >= startingTime && eventToAdd.GetStartingTime() <= endingTime) || (eventToAdd.GetEndingTime() >= startingTime && eventToAdd.GetEndingTime() <= endingTime))
+				return false;
+			else
+				return true;
+		}
+	}
+
+	std::vector<Event> EventList;
+	const std::string NameOfDay;
+	const int DayNumber;
+
+	void SortEvents()
+	{
+		std::sort(this->EventList.begin(), this->EventList.end());
+	}
+
 public:
 
 
@@ -121,34 +145,5 @@ public:
 
 		}
 
-	}
-
-
-private:
-
-
-	bool IsHourFree(Event eventToAdd)
-	{
-		for(auto &temp : EventList)
-		{
-			auto startingTime = temp.GetStartingTime();
-			auto endingTime = temp.GetEndingTime();
-
-			
-			if ((eventToAdd.GetStartingTime() >= startingTime && eventToAdd.GetStartingTime() <= endingTime) || (eventToAdd.GetEndingTime() >= startingTime && eventToAdd.GetEndingTime() <= endingTime))
-				return false;
-			else
-				return true;
-		}
-	}
-
-	std::vector<Event> EventList;
-
-	const std::string NameOfDay;
-	const int DayNumber;
-
-	void SortEvents()
-	{
-		std::sort(this->EventList.begin(), this->EventList.end());
 	}
 };

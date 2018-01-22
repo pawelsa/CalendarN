@@ -3,12 +3,9 @@
 
 namespace dim {
 
-
 	sf::Font font;
 
-
 	std::vector<std::string> MonthNames = { "January", "February", "March", "April", "May", "June", "July", "August" , "September" , "October" , "November" , "December" };
-
 
 	std::vector<std::string> DayNames = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
@@ -70,12 +67,11 @@ namespace dim {
 	const int EventTextSize_Day = 25;
 
 	/*			Baton's button												*/
+	
 	const sf::Vector2f SizeOfButton = sf::Vector2f(100, 70);
 	const sf::Vector2f ButtonOffset = sf::Vector2f(500, 100);
 	const int ButtonOutlinethickness = 2;
 	const sf::Vector2f ButtonTextOffset = sf::Vector2f(25, 35);
 	const int ButtonTextSize = 15;
-
-
 
 }

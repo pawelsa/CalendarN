@@ -2,6 +2,7 @@
 #include "Event.h"
 
 class PeriodicEvent : public Event {
+	
 	int Period;
 	int PeriodLasting;
 
@@ -11,8 +12,6 @@ public:
 		this->Period = period;
 		this->PeriodLasting = periodlasting;
 	}
-	~PeriodicEvent()
-	{
 
-	}
+	~PeriodicEvent() {};
 };
