@@ -4,33 +4,25 @@
 #include "Dimensions.h"
 #include "Month.h"
 #include <list>
+
 extern sf::RenderWindow window;
 
 class Year {
 
-
-
-
+	const int YearNumber;
+	std::list<Month*> Months;
 
 public:
-
 	Year(int mYear) :YearNumber(mYear) {
-
-
 		for (int i = 0; i < 12; i++)
 		{
-
 			//Commented means - mved to month
 			//auto current = DayNumber(1, i, mYear);
 
 			Month* monthToAdd = new Month(i, mYear/*, current*/);
 			Months.push_back(monthToAdd);
-
 		}
-
-
 	}
-
 
 	void displayYear() {
 
@@ -69,13 +61,11 @@ public:
 
 	}
 
-
 	bool doTheyIntersect_Year(sf::Vector2f mPosition) {
 
 		sf::RectangleShape item;
 
 		item.setSize(dim::SizeOfItem_Year);
-
 
 		for (int Y = 0; Y < 3; Y++) {
 
@@ -90,22 +80,8 @@ public:
 
 					return true;
 				}
-
 			}
-
 		}
-
 		return false;
-
-	}
-
-
-
-private:
-
-
-	const int YearNumber;
-
-	std::list<Month*> Months;
-	
+	}	
 };

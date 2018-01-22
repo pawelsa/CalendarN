@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 
-
 extern sf::RenderWindow window;
 
 class Day

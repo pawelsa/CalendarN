@@ -14,10 +14,10 @@ int main() {
 	while (window.isOpen())
 	{
 
-		Calendar *newCalendar = new Calendar();
+		//Calendar *newCalendar = new Calendar();
 		//Month *newMonth = new Month(5, 2018);
 		//Year *newYear = new Year(2018);
-		//Day *newDay = new Day(5);
+		Day *newDay = new Day(5);
 
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -51,10 +51,10 @@ int main() {
 
 		window.clear();
 
-		newCalendar->display_Calendar();
+		//newCalendar->display_Calendar();
 		//newMonth->displayMonth();
 		//newYear->displayYear();
-		//newDay->display_Day();
+		newDay->display_Day();
 
 		window.display();
 	}
