@@ -170,6 +170,21 @@ public:
 		}
 
 
+		Item.setSize(dim::SizeOfButton);
+		Item.setOutlineThickness(dim::OutlineThickness_Button);
+		Item.setPosition(dim::ButtonOffset);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineColor(sf::Color::White);
+
+		NumberOfMonthsDay_Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+		NumberOfMonthsDay_Text.setFillColor(sf::Color::White);
+		NumberOfMonthsDay_Text.setCharacterSize(dim::TextSize_Calendar);
+		NumberOfMonthsDay_Text.setString("Add Event");
+
+		window.draw(Item);
+		window.draw(NumberOfMonthsDay_Text);
+
+
 	}
 
 
@@ -206,6 +221,23 @@ public:
 		}
 
 		return NULL;
+	}
+
+
+
+	bool isAddNewEventPressed(sf::Vector2f mPosition) {
+
+		sf::RectangleShape Item;
+
+		Item.setSize(dim::SizeOfButton);
+		Item.setPosition(dim::ButtonOffset);
+
+		if (Item.getGlobalBounds().contains(mPosition)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
 	~Month() {};

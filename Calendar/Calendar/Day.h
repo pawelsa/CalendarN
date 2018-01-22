@@ -142,7 +142,38 @@ public:
 				window.draw(EventName);
 			}
 
+
+			Item.setSize(dim::SizeOfButton);
+			Item.setOutlineThickness(dim::OutlineThickness_Button);
+			Item.setPosition(dim::ButtonOffset);
+			Item.setFillColor(sf::Color::Transparent);
+			Item.setOutlineColor(sf::Color::White);
+
+			EventName.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+			EventName.setFillColor(sf::Color::White);
+			EventName.setCharacterSize(dim::TextSize_Calendar);
+			EventName.setString("Add Event");
+
+			window.draw(Item);
+			window.draw(EventName);
+
 		}
 
+	}
+
+
+	bool isAddNewEventPressed(sf::Vector2f mPosition) {
+
+		sf::RectangleShape Item;
+
+		Item.setSize(dim::SizeOfButton);
+		Item.setPosition(dim::ButtonOffset);
+
+		if (Item.getGlobalBounds().contains(mPosition)) {
+
+			return true;
+		}
+
+		return false;
 	}
 };

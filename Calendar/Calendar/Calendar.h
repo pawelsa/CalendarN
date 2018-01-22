@@ -110,15 +110,19 @@ public:
 		window.draw(Item);
 
 		//Konrad's button xD
-		sf::RectangleShape Button;
 
-		Button.setSize(dim::SizeOfButton);
-		Button.setFillColor(sf::Color::Yellow);
-		Button.setOutlineThickness(5);
-		Button.setPosition(dim::ButtonOffset);
-		Button.setOutlineColor(sf::Color::Blue);
+		Item.setSize(dim::SizeOfButton);
+		Item.setOutlineThickness(dim::OutlineThickness_Button);
+		Item.setPosition(dim::ButtonOffset);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineColor(sf::Color::White);
 
-		window.draw(Button);
+		NumberOfYears_Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+		NumberOfYears_Text.setFillColor(sf::Color::White);
+		NumberOfYears_Text.setString("Add Event");
+
+		window.draw(Item);
+		window.draw(NumberOfYears_Text);
 	}
 
 
@@ -146,5 +150,21 @@ public:
 		return NULL;
 	}
 
+
+
+	bool isAddNewEventPressed(sf::Vector2f mPosition) {
+
+		sf::RectangleShape Item;
+
+		Item.setSize(dim::SizeOfButton);
+		Item.setPosition(dim::ButtonOffset);
+
+		if (Item.getGlobalBounds().contains(mPosition)) {
+
+			return true;
+		}
+
+		return false;
+	}
 
 };

@@ -47,8 +47,12 @@ public:
 
 	}
 
-
 	void intersection(sf::Vector2f mousePos) {
+
+		if (ActualCalendar->isAddNewEventPressed(mousePos)) {
+
+
+		}
 
 		if (ActualCalendar) {
 
