@@ -15,7 +15,7 @@ public:
 	*/
 
 	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber), // monthNumber+1??
-		NumberOfDaysInMonth(NumberOfDays(monthNumber, year)), FirstDayOfMonth(DayNumber(1, monthNumber, year))
+		NumberOfDaysInMonth(NumberOfDays(monthNumber, year)), FirstDayOfMonth(DayNumber(1, monthNumber+1, year))
 	{
 		/*
 		this->Name = dim::MonthNames.at(monthNumber);
