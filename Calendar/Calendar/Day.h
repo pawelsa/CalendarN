@@ -19,7 +19,7 @@ public:
 
 			Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
 			AddEvent(eventToAdd);
-			Event eventToAd = Event(10, 13, "test1", Person("ee", "bb"));
+			Event eventToAd = Event(10, 11, "test1", Person("ee", "bb"));
 			AddEvent(eventToAd);
 		}
 	
@@ -34,8 +34,11 @@ public:
 	{
 		try
 		{
-			if(IsHourFree(eventToAdd))
+			if (IsHourFree(eventToAdd))
+			{
 				EventList.push_back(eventToAdd);
+				SortEvents();
+			}
 		}
 		catch (const std::exception& ex)
 		{
@@ -48,8 +51,6 @@ public:
 		auto tempList = this->EventList;
 		try
 		{
-			
-
 			tempList.erase(std::remove(tempList.begin(), tempList.end(), eventToRemove), tempList.end());
 			this->EventList = tempList;
 		}
@@ -145,4 +146,9 @@ private:
 
 	const std::string NameOfDay;
 	const int DayNumber;
+
+	void SortEvents()
+	{
+		std::sort(this->EventList.begin(), this->EventList.end());
+	}
 };
