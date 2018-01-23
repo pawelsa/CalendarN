@@ -94,6 +94,10 @@ public:
 
 	void display_Day() {
 
+
+		sf::RectangleShape Item;
+
+
 		sf::Text EventName;
 		EventName.setPosition(dim::NoEventsTextPosition_Day);
 		EventName.setFont(dim::font);
@@ -113,7 +117,6 @@ public:
 			EventName.setCharacterSize(dim::EventTextSize_Day);
 			EventName.setFillColor(sf::Color::Black);
 
-			sf::RectangleShape Item;
 
 			Item.setSize(dim::SizeOfItem_Day);
 			Item.setFillColor(sf::Color::Green);
@@ -143,6 +146,9 @@ public:
 			}
 
 
+
+		}
+
 			Item.setSize(dim::SizeOfButton);
 			Item.setOutlineThickness(dim::OutlineThickness_Button);
 			Item.setPosition(dim::ButtonOffset);
@@ -156,8 +162,6 @@ public:
 
 			window.draw(Item);
 			window.draw(EventName);
-
-		}
 
 	}
 

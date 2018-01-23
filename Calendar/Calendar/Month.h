@@ -134,7 +134,7 @@ public:
 
 
 		int CountNumberOfDays = 1;
-
+		//cos tu trzeba zmienic bo o jeden dzien za pozno podswietla okienko z eventem
 
 		for (int Y = 0; Y * 7 <= NumberOfDaysInMonth; Y++) {
 
@@ -211,7 +211,7 @@ public:
 
 					if (Item.getGlobalBounds().contains(mPosition)) {
 
-						return Days.at(CountNumberOfDays);
+						return Days.at(CountNumberOfDays-1);
 					}
 
 					CountNumberOfDays++;

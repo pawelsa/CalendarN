@@ -49,10 +49,7 @@ public:
 
 	void intersection(sf::Vector2f mousePos) {
 
-		if (ActualCalendar->isAddNewEventPressed(mousePos)) {
-
-
-		}
+		//if (ActualCalendar->isAddNewEventPressed(mousePos)) {}
 
 		if (ActualCalendar) {
 
@@ -63,6 +60,7 @@ public:
 					if (ActualDay) {
 
 						//ActualDay->doTheyIntersect_Day(mousePos);
+						return;
 					}
 
 					ActualDay = ActualMonth->doTheyIntersect_Month(mousePos);
