@@ -15,10 +15,8 @@ public:
 	Year(int mYear) :YearNumber(mYear) {
 		for (int i = 0; i < 12; i++)
 		{
-			//Commented means - mved to month
-			//auto current = DayNumber(1, i, mYear);
 
-			Month* monthToAdd = new Month(i, mYear/*, current*/);
+			Month* monthToAdd = new Month(i, mYear);
 			Months.push_back(monthToAdd);
 		}
 	}

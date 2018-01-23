@@ -66,12 +66,20 @@ namespace dim {
 	const int NoEventTextSize_Day = 40;
 	const int EventTextSize_Day = 25;
 
-	/*			Add Event button												*/
+	/*			Add Event button										*/
 	
 	const sf::Vector2f SizeOfButton = sf::Vector2f(140, 40);
 	const sf::Vector2f ButtonOffset = sf::Vector2f(1080, 70);
 	const int OutlineThickness_Button = 3;
 	const sf::Vector2f TextOffset_Button = sf::Vector2f(10,3);
 	const int TextSize_Button = 15;
+
+	/*			Event Helper											*/
+
+	const sf::Vector2f SizeOfCheckBox_Helper = sf::Vector2f(20, 20);
+	const sf::Vector2f CheckBoxOffset_Helper = sf::Vector2f(200, 100);
+	const sf::Vector2f OffsetBetweekCheckBoxes_Helper = sf::Vector2f(200, 0);
+	const int OutlineThickness_Helper = 5;
+
 
 }

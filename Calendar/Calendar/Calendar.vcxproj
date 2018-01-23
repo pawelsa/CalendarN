@@ -140,6 +140,7 @@
     <ClInclude Include="Day.h" />
     <ClInclude Include="Dimensions.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="EventHelper.h" />
     <ClInclude Include="LongTermEvent.h" />
     <ClInclude Include="Month.h" />
     <ClInclude Include="PeriodicEvent.h" />

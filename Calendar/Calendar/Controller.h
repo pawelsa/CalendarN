@@ -1,5 +1,6 @@
 #pragma once
 #include "Calendar.h"
+#include "EventHelper.h"
 
 
 class Controller {
@@ -8,18 +9,24 @@ class Controller {
 	Year *ActualYear;
 	Month *ActualMonth;
 	Day *ActualDay;
-	Event *AddEvent;
+	EventHelper *EventH;
 
 
 public:
 
-	Controller() :ActualYear(NULL) , ActualMonth(NULL), ActualDay(NULL){
+	Controller() :ActualYear(NULL) , ActualMonth(NULL), ActualDay(NULL), EventH(NULL) {
 
 		ActualCalendar = new Calendar();	// to bedzie zamiast maina
 
 	}
 
 	void display() {
+
+		if (EventH) {
+
+			EventH->display();
+			return;
+		}
 
 		if (ActualCalendar) {
 
@@ -49,7 +56,21 @@ public:
 
 	void intersection(sf::Vector2f mousePos) {
 
-		//if (ActualCalendar->isAddNewEventPressed(mousePos)) {}
+		if (ActualCalendar->isAddNewEventPressed(mousePos)) {
+		
+			if (!EventH) {
+			
+				EventH = new EventHelper();
+			}
+
+			return;
+		}
+
+		if (EventH) {
+
+			EventH->intersection(mousePos);
+			return;
+		}
 
 		if (ActualCalendar) {
 
