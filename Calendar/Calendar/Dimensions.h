@@ -76,10 +76,15 @@ namespace dim {
 
 	/*			Event Helper											*/
 
-	const sf::Vector2f SizeOfCheckBox_Helper = sf::Vector2f(20, 20);
-	const sf::Vector2f CheckBoxOffset_Helper = sf::Vector2f(200, 100);
-	const sf::Vector2f OffsetBetweekCheckBoxes_Helper = sf::Vector2f(200, 0);
-	const int OutlineThickness_Helper = 5;
+		/*			CheckBoxes										*/
+		const sf::Vector2f SizeOfCheckBox_Helper = sf::Vector2f(20, 20);
+		const sf::Vector2f CheckBoxOffset_Helper = sf::Vector2f(200, 100);
+		const sf::Vector2f OffsetBetweekCheckBoxes_Helper = sf::Vector2f(200, 0);
+		const int OutlineThickness_Helper = 5;
+		const sf::Vector2f CheckBoxTextOffset_Helper = sf::Vector2f(30, 0);
+		const int CheckBoxTextSize_Helper = 17;
+
+
 
 
 }
