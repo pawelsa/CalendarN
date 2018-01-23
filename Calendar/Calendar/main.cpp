@@ -37,6 +37,10 @@ int main() {
 
 					newController->moveToLastScreen();
 				}
+				else {
+
+					newController->enterChar(static_cast<char>(event.key.code));
+				}
 			}
 
 		}

@@ -84,6 +84,13 @@ namespace dim {
 		const sf::Vector2f CheckBoxTextOffset_Helper = sf::Vector2f(30, 0);
 		const int CheckBoxTextSize_Helper = 17;
 
+		/*			Description Text Box									*/
+		const sf::Vector2f SizeOfDescriptionBox_Helper = sf::Vector2f(600, 30);
+		const sf::Vector2f DescriptionBoxOffset_Helper = sf::Vector2f(200, 200);
+		const int OutlineThicknessDescriptionBox_Helper = 5;
+		
+		const int TextSizeDescriptionBox_Helper = 26;
+		const sf::Vector2f TextDescriptionBoxOffset_Helper = sf::Vector2f(2, -2);
 
 
 

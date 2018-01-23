@@ -101,6 +101,13 @@ public:
 
 	void moveToLastScreen() {
 
+		if (EventH) {
+
+			//delete EventH;	trzeba stworzyc jesli wgl jest potrzebny
+			EventH = NULL;
+			return;
+		}
+
 		if (ActualCalendar) {
 
 			if (ActualYear) {
@@ -123,5 +130,13 @@ public:
 
 		}
 
+	}
+
+	void enterChar(int c) {
+
+		if (EventH) {
+
+			EventH->enterChar(c);
+		}
 	}
 };

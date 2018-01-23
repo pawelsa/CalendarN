@@ -5,25 +5,37 @@
 
 extern sf::RenderWindow window;
 
-struct EventHelper {
+class EventHelper {
 
-	int day;
-	int month;
-	int year;
 
 	//	Event
-	int StartingTime, EndingTime;
-	std::string Description;
-	Person Man;
+	std::string day, month, year, StartingTime, EndingTime;
+	std::string Description;	
+
+	Person Man;		//	nie wiem co z tym
 
 	//	LongTernEvent
-	int LastingTime;	//	PeriodLasting
+	std::string LastingTime;	//	PeriodLasting
 
 	//	PeriodicEvent
-	int Period;
+	std::string Period;
 
 	bool TypeOfEvent[2];
 	bool ActiveInputBox[8];
+
+
+	/*		Active input box			
+	*
+	*	1	-	Description
+	*	2	-	Day
+	*	3	-	Month
+	*	4	-	Year
+	*	5	-	StartingTime
+	*	6	-	EndingTime
+	*	7	-	LastingTime
+	*	8	-	Period
+	*
+	*/
 
 public:
 
@@ -39,6 +51,8 @@ public:
 
 
 	void display() {
+
+		/*			CheckBoxes															*/
 
 		sf::RectangleShape Item;
 
@@ -84,6 +98,27 @@ public:
 		window.draw(Item);
 
 
+		/*			Input Text Box														*/
+
+		Item.setPosition(dim::DescriptionBoxOffset_Helper);
+		Item.setSize(dim::SizeOfDescriptionBox_Helper);
+		Item.setOutlineThickness(dim::OutlineThicknessDescriptionBox_Helper);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineColor(sf::Color::White);
+
+		Text.setPosition(dim::DescriptionBoxOffset_Helper + dim::TextDescriptionBoxOffset_Helper);
+		Text.setCharacterSize(dim::TextSizeDescriptionBox_Helper);
+		Text.setString(Description);
+
+		window.draw(Item);
+		window.draw(Text);
+
+		/*
+		
+		tu trzeba dodac prostokaty na date dd/mm/yyyy
+		i potem jesli jest wybrane periodic albo longlasting to musi wyswietlic kolejne prostokaciki
+		
+		*/
 
 	}
 
@@ -126,7 +161,182 @@ public:
 			}
 		}
 
+		//	Check if DescriptionBox Selected
 
+		Item.setPosition(dim::DescriptionBoxOffset_Helper);
+		Item.setSize(dim::SizeOfDescriptionBox_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[0] = true;
+		}
+		else {
+
+			ActiveInputBox[0] = false;
+		}
+
+	}
+
+	void enterChar(int c) {
+
+		/*		Active input box
+		*
+		*	0	-	Description
+		*	1	-	Day
+		*	2	-	Month
+		*	3	-	Year
+		*	4	-	StartingTime
+		*	5	-	EndingTime
+		*	6	-	LastingTime
+		*	7	-	Period
+		*
+		*/
+
+		char add=-1;
+
+		if (c <= 35) {
+
+			add = 0;
+			add = (char)c + 65;
+		}
+		else if (c == 57) {
+
+			add = -3;
+		}
+		else if (c == 59) {
+
+			add = -2;	//backspace
+		}
+
+		if (ActiveInputBox[0]) {
+
+			if (add >=0)
+				Description += add;
+			if (add == -2) {
+
+				int length = Description.length();
+				Description = Description.substr(0, Description.size() - 1);
+			}
+			if (add == -3) {
+
+				Description += " ";
+			}
+		}
+		if (ActiveInputBox[1]) {
+
+			if (add > 26) {
+				day += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				day = day.substr(0, day.size() - 1);
+			}
+			if (add == -3) {
+
+				day += " ";
+			}
+
+		}
+		if (ActiveInputBox[2]) {
+
+			if (add > 26) {
+				month += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				month = month.substr(0, month.size() - 1);
+			}
+			if (add == -3) {
+
+				month += " ";
+			}
+
+		}
+		if (ActiveInputBox[3]) {
+
+			if (add > 26) {
+				year += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				year = year.substr(0, year.size() - 1);
+			}
+			if (add == -3) {
+
+				year += " ";
+			}
+
+		}
+		if (ActiveInputBox[4]) {
+
+			if (add > 26) {
+				StartingTime += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				StartingTime = StartingTime.substr(0, StartingTime.size() - 1);
+			}
+			if (add == -3) {
+
+				StartingTime += " ";
+			}
+
+		}
+		if (ActiveInputBox[5]) {
+
+			if (add > 26) {
+				EndingTime += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				EndingTime = EndingTime.substr(0, EndingTime.size() - 1);
+			}
+			if (add == -3) {
+
+				EndingTime += " ";
+			}
+
+		}
+		if (ActiveInputBox[6]) {
+
+			if (add > 26) {
+				LastingTime += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				LastingTime = LastingTime.substr(0, LastingTime.size() - 1);
+			}
+			if (add == -3) {
+
+				LastingTime += " ";
+			}
+
+		}
+		if (ActiveInputBox[7]) {
+
+			if (add > 26) {
+				Period += add;
+			}
+			if (add == -2) {
+
+				int length = Description.length();
+				Period = Period.substr(0, Period.size() - 1);
+			}
+			if (add == -3) {
+
+				Period += " ";
+			}
+
+		}
 	}
 
 };
