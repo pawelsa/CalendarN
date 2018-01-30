@@ -118,7 +118,7 @@ class Month
 
 				if (Days.at(CountNumberOfDays - 1)->HaveAnyEvent()) {
 
-					std::vector<Event> EventList = Days.at(CountNumberOfDays - 1)->returnEventList();
+					std::vector<Event*> EventList = Days.at(CountNumberOfDays - 1)->returnEventList();
 
 					if (!EventList.empty()) {
 
@@ -147,11 +147,11 @@ class Month
 							ItemE.setPosition(position);
 
 							TextE.setPosition(position + dim::TextOffset_Day);
-							TextE.setString(EventList.at(i).DurationDescription());
+							TextE.setString(EventList.at(i)->DurationDescription());
 
 
 							TextEE.setPosition(position + dim::TextNameEventOffset_Week);
-							TextEE.setString(EventList.at(i).EventDescription());
+							TextEE.setString(EventList.at(i)->EventDescription());
 
 							window.draw(ItemE);
 							window.draw(TextE);

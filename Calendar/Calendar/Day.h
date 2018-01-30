@@ -42,7 +42,7 @@ private:
 
 public:
 
-	std::vector<Event> returnEventList(){
+	std::vector<Event*> returnEventList(){
 
 		return EventList;
 	}

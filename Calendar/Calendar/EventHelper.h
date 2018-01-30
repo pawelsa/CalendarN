@@ -14,12 +14,12 @@ class EventHelper {
 
 
 	//	Event
-	std::string Day = "DD", Month = "MM", MYear = "YYYY", Hour = "HH", Minutes = "mm", FirstName, SecondName;
+	std::string Day = "DD", Month = "MM", MYear = "YYYY", SHour = "HH", SMinutes = "mm", FirstName, SecondName;
 	std::string Description = "Description";
 
 
-	std::string StartingTime = "00"; //wczytywanie tego jeszcze
-	std::string EndingTime = "00"; // wczytywanie tego jeszcze 
+	std::string EHour = "HH"; //wczytywanie tego jeszcze
+	std::string EMinutes = "mm"; // wczytywanie tego jeszcze 
 
 	Person Man;		//	nie wiem co z tym
 
@@ -30,7 +30,7 @@ class EventHelper {
 	std::string Period;	//	co ile dni
 
 	bool TypeOfEvent[2];
-	bool ActiveInputBox[10];
+	bool ActiveInputBox[12];
 	bool WithPerson = false;
 
 	Event *ready = NULL;
@@ -49,6 +49,8 @@ class EventHelper {
 	*	7	-	Period
 	*	8	-	Hour
 	*	9	-	Minutes
+	*	10	-	EHour
+	*	11	-	EMinutes
 	*
 	*/
 
@@ -215,7 +217,7 @@ public:
 
 		Text.setPosition(dim::HHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper);
 		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
-		Text.setString(Hour);
+		Text.setString(SHour);
 
 		window.draw(Item);
 		window.draw(Text);
@@ -225,7 +227,30 @@ public:
 
 		Text.setPosition(dim::HHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
 		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
-		Text.setString(Minutes);
+		Text.setString(SMinutes);
+
+		window.draw(Item);
+		window.draw(Text);
+		 
+		//	Ending
+		
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::EndingHHMMBoxOffset_Helper);
+		Item.setOutlineThickness(dim::OutlineThicknessHHMMBox_Helper);
+
+		Text.setPosition(dim::EndingHHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper);
+		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
+		Text.setString(EHour);
+
+		window.draw(Item);
+		window.draw(Text);
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::EndingHHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
+
+		Text.setPosition(dim::EndingHHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
+		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
+		Text.setString(EMinutes);
 
 		window.draw(Item);
 		window.draw(Text);
@@ -497,6 +522,39 @@ public:
 			ActiveInputBox[9] = false;
 		}
 
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::EndingHHMMBoxOffset_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[10] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[10] = false;
+		}
+
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::EndingHHMMBoxOffset_Helper+dim::OffsetBetweenHHMMBoxes_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[11] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[11] = false;
+		}
 
 		Item.setSize(dim::SizeOfPeriodicBox_Helper);
 		Item.setPosition(dim::PeriodicBoxOffset_Helper);
@@ -817,62 +875,116 @@ public:
 
 			if (add > 26) {
 
-				if (Hour == "HH") {
+				if (SHour == "HH") {
 					
-					Hour.clear();
+					SHour.clear();
 				}
 
-				if (Hour.length() < 2) {
+				if (SHour.length() < 2) {
 
-					Hour += add;
+					SHour += add;
 				}
 			}
 			if (add == -2) {
 
-				Hour = Hour.substr(0, Hour.size() - 1);
+				SHour = SHour.substr(0, SHour.size() - 1);
 			}
 			if (add == -3) {
 
-				if (Hour.length() < 2) {
+				if (SHour.length() < 2) {
 
-					Hour += " ";
+					SHour += " ";
 				}
 			}
 
 		}
 		if (ActiveInputBox[9]) {
 
-			if (Minutes == "mm") {
+			if (SMinutes == "mm") {
 
-				Minutes.clear();
+				SMinutes.clear();
 			}
 
 			if (add > 26) {
 
-				if (Minutes.length() < 2) {
+				if (SMinutes.length() < 2) {
 
-					Minutes += add;
+					SMinutes += add;
 				}
 			}
 			if (add == -2) {
 
-				Minutes = Minutes.substr(0, Minutes.size() - 1);
+				SMinutes = SMinutes.substr(0, SMinutes.size() - 1);
 			}
 			if (add == -3) {
 
-				if (Minutes.length() < 2) {
+				if (SMinutes.length() < 2) {
 
-					Minutes += " ";
+					SMinutes += " ";
+				}
+			}
+
+		}
+		if (ActiveInputBox[10]) {
+
+			if (EHour == "HH") {
+
+				EHour.clear();
+			}
+
+			if (add > 26) {
+
+				if (EHour.length() < 2) {
+
+					EHour += add;
+				}
+			}
+			if (add == -2) {
+
+				EHour = EHour.substr(0, EHour.size() - 1);
+			}
+			if (add == -3) {
+
+				if (EHour.length() < 2) {
+
+					EHour += " ";
+				}
+			}
+
+		}
+		if (ActiveInputBox[11]) {
+
+			if (EMinutes == "mm") {
+
+				EMinutes.clear();
+			}
+
+			if (add > 26) {
+
+				if (EMinutes.length() < 2) {
+
+					EMinutes += add;
+				}
+			}
+			if (add == -2) {
+
+				EMinutes = EMinutes.substr(0, EMinutes.size() - 1);
+			}
+			if (add == -3) {
+
+				if (EMinutes.length() < 2) {
+
+					EMinutes += " ";
 				}
 			}
 
 		}
 
 	}
-
+	/*
 	bool createEvent() 
 	{
-
+		
 		try
 		{
 			int nrDay = std::stoi(this->Day);
@@ -963,5 +1075,10 @@ public:
 			std::cout << ex.what();
 			return false;
 		}
+	}
+	*/
+
+	bool createEvent() {
+		return false;
 	}
 };

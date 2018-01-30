@@ -130,6 +130,9 @@ namespace dim {
 		const sf::Vector2f TextHHMMBoxOffset_Helper = sf::Vector2f(2, -2);
 
 
+		const sf::Vector2f EndingHHMMBoxOffset_Helper = sf::Vector2f(700, 300);
+
+
 		/*			Periodic & LongTerm								*/
 
 		const sf::Vector2f InfoTextOffset_Helper = sf::Vector2f(200, 350);
