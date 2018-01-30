@@ -981,7 +981,7 @@ public:
 		}
 
 	}
-	/*
+	
 	bool createEvent() 
 	{
 		
@@ -990,8 +990,8 @@ public:
 			int nrDay = std::stoi(this->Day);
 			int nrMonth = std::stoi(this->Month);
 			int nrYear = std::stoi(this->MYear);
-			int nrStartingTime = std::stoi(this->StartingTime);//todo
-			int nrEndingTime = std::stoi(this->EndingTime); //todo
+			int nrStartingTime = std::stoi(this->SHour);//todo
+			int nrEndingTime = std::stoi(this->EHour); //todo
 
 			int actualDay = nrDay - 1;
 			int actualMonth = nrMonth - 1;
@@ -1076,9 +1076,6 @@ public:
 			return false;
 		}
 	}
-	*/
 
-	bool createEvent() {
-		return false;
-	}
+	
 };
