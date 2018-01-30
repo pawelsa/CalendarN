@@ -42,6 +42,11 @@ private:
 
 public:
 
+	std::vector<Event*> returnEventList(){
+
+		return EventList;
+	}
+
 
 	Day(int dayNumber) : NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { 	};
 
@@ -90,7 +95,6 @@ public:
 		else
 			return true;
 	};
-
 
 	void display_Day() {
 
@@ -165,6 +169,10 @@ public:
 
 	}
 
+	int returnDayNumber() {
+
+		return DayNumber;
+	}
 
 	bool isAddNewEventPressed(sf::Vector2f mPosition) {
 

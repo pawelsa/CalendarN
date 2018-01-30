@@ -55,6 +55,23 @@ namespace dim {
 	const sf::Vector2f DayNamesOffset = sf::Vector2f(300, 60);
 	const int TextSize_Month = 17;
 
+		/*			Week view											*/
+
+		const sf::Vector2f SizeOfItem_Week = sf::Vector2f(100, 500);
+		const sf::Vector2f ItemOffset_Week = sf::Vector2f(300, 100);
+		const int OutlineThickness_Week = 3;
+		const sf::Vector2f OffestBetweenItems_Week = SizeOfItem_Week + sf::Vector2f(OutlineThickness_Week, OutlineThickness_Week);
+		const sf::Vector2f TextOffset_Week = sf::Vector2f(15, 15);
+		const sf::Vector2f DayNamesOffset_Week = sf::Vector2f(300, 60);
+		const int TextSize_Week = 17;
+
+		
+		const sf::Vector2f SizeOfEventTextBox_Week = sf::Vector2f(90, 80);
+		const sf::Vector2f EventTextOffset_Week = sf::Vector2f(5, 5);
+		const sf::Vector2f TextNameEventOffset_Week = sf::Vector2f(0, 40);
+		const int EventTextSize_Week = 14;
+		
+
 	/*			Day class												*/
 
 	const sf::Vector2f SizeOfItem_Day = sf::Vector2f(800, 40);
@@ -111,6 +128,9 @@ namespace dim {
 
 		const int TextSizeHHMM_Helper = 26;
 		const sf::Vector2f TextHHMMBoxOffset_Helper = sf::Vector2f(2, -2);
+
+
+		const sf::Vector2f EndingHHMMBoxOffset_Helper = sf::Vector2f(700, 300);
 
 
 		/*			Periodic & LongTerm								*/

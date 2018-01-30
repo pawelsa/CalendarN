@@ -129,7 +129,12 @@ public:
 						return;
 					}
 
-					ActualMonth = NULL;
+					if (ActualMonth->moveBack()) {
+
+						ActualMonth = NULL;
+						return;
+					}
+
 					return;
 				}
 

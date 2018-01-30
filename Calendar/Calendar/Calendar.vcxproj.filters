@@ -56,5 +56,8 @@
     <ClInclude Include="FileHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+	<ClInclude Include="Week.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
