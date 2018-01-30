@@ -9,31 +9,35 @@ class EventHelper {
 
 
 	//	Event
-	std::string day, month, year, StartingTime, EndingTime;
-	std::string Description;	
+	std::string Day = "DD", Month = "MM", Year = "YYYY", Hour = "HH", Minutes = "mm", FirstName, SecondName;
+	std::string Description = "Description";
 
 	Person Man;		//	nie wiem co z tym
 
 	//	LongTernEvent
-	std::string LastingTime;	//	PeriodLasting
+	std::string LastingTime;	//	ile powtorzen
 
 	//	PeriodicEvent
-	std::string Period;
+	std::string Period;	//	co ile dni
 
 	bool TypeOfEvent[2];
-	bool ActiveInputBox[8];
+	bool ActiveInputBox[10];
+	bool WithPerson = false;
 
+	Event *ready = NULL;
 
 	/*		Active input box			
 	*
-	*	1	-	Description
-	*	2	-	Day
-	*	3	-	Month
-	*	4	-	Year
-	*	5	-	StartingTime
-	*	6	-	EndingTime
-	*	7	-	LastingTime
-	*	8	-	Period
+	*	0	-	Description
+	*	1	-	Day
+	*	2	-	Month
+	*	3	-	Year
+	*	4	-	FirstName
+	*	5	-	SecondName
+	*	6	-	LastingTime
+	*	7	-	Period
+	*	8	-	Hour
+	*	9	-	Minutes
 	*
 	*/
 
@@ -49,12 +53,32 @@ public:
 
 	}
 
-
 	void display() {
+
+		/*			Save Event Button													*/
+
+		sf::RectangleShape Item;
+		
+		Item.setSize(dim::SizeOfButton);
+		Item.setOutlineThickness(dim::OutlineThickness_Button);
+		Item.setPosition(dim::ButtonOffset);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineColor(sf::Color::White);
+		
+		
+		sf::Text Text;
+
+		Text.setFont(dim::font);
+		Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+		Text.setFillColor(sf::Color::White);
+		Text.setCharacterSize(dim::TextSize_Calendar);
+		Text.setString("Save Event");
+
+		window.draw(Item);
+		window.draw(Text);
 
 		/*			CheckBoxes															*/
 
-		sf::RectangleShape Item;
 
 		Item.setFillColor(sf::Color::Transparent);
 		Item.setPosition(dim::CheckBoxOffset_Helper);
@@ -62,9 +86,6 @@ public:
 		Item.setOutlineThickness(dim::OutlineThickness_Helper);
 		Item.setOutlineColor(sf::Color::White);
 
-		sf::Text Text;
-
-		Text.setFont(dim::font);
 		Text.setPosition(dim::CheckBoxOffset_Helper + dim::CheckBoxTextOffset_Helper);
 		Text.setFillColor(sf::Color::White);
 		Text.setCharacterSize(dim::CheckBoxTextSize_Helper);
@@ -98,6 +119,26 @@ public:
 		window.draw(Item);
 
 
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setPosition(dim::CheckBoxOffset_Helper + dim::OffsetBetweekCheckBoxes_Helper + dim::OffsetBetweekCheckBoxes_Helper);
+		Item.setSize(dim::SizeOfCheckBox_Helper);
+		Item.setOutlineThickness(dim::OutlineThickness_Helper);
+		Item.setOutlineColor(sf::Color::White);
+
+		Text.setPosition(dim::CheckBoxOffset_Helper + dim::CheckBoxTextOffset_Helper + dim::OffsetBetweekCheckBoxes_Helper + dim::OffsetBetweekCheckBoxes_Helper);
+
+		Text.setString("With person");
+
+		if (WithPerson == true) {
+
+			Item.setFillColor(sf::Color(130, 0, 0));
+		}
+
+		window.draw(Text);
+		window.draw(Item);
+
+
+
 		/*			Input Text Box														*/
 
 		Item.setPosition(dim::DescriptionBoxOffset_Helper);
@@ -113,18 +154,173 @@ public:
 		window.draw(Item);
 		window.draw(Text);
 
-		/*
+
+		/*			DDMMYYYY															*/
+
+		Item.setSize(dim::SizeOfDDMMYYYYBox_Helper);
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper);
+		Item.setOutlineThickness(dim::OutlineThicknessDDMMYYYYBox_Helper);
 		
-		tu trzeba dodac prostokaty na date dd/mm/yyyy
-		i potem jesli jest wybrane periodic albo longlasting to musi wyswietlic kolejne prostokaciki
-		
-		*/
+		Text.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::TextDDMMYYYYBoxOffset_Helper);
+		Text.setCharacterSize(dim::TextSizeDDMMYYYY_Helper);
+		Text.setString(Day);
+
+		window.draw(Item);
+		window.draw(Text);
+
+
+		Item.setSize(dim::SizeOfDDMMYYYYBox_Helper);
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper+dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+
+		Text.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::TextDDMMYYYYBoxOffset_Helper+dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+		Text.setCharacterSize(dim::TextSizeDDMMYYYY_Helper);
+		Text.setString(Month);
+
+		window.draw(Item);
+		window.draw(Text);
+
+
+		Item.setSize(sf::Vector2f(1.5 * dim::SizeOfDDMMYYYYBox_Helper.x, dim::SizeOfDDMMYYYYBox_Helper.y));
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+
+		Text.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::TextDDMMYYYYBoxOffset_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+		Text.setCharacterSize(dim::TextSizeDDMMYYYY_Helper);
+		Text.setString(Year);
+
+		window.draw(Item);
+		window.draw(Text);
+
+		/*			HH MM																*/
+
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::HHMMBoxOffset_Helper);
+		Item.setOutlineThickness(dim::OutlineThicknessHHMMBox_Helper);
+
+		Text.setPosition(dim::HHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper);
+		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
+		Text.setString(Hour);
+
+		window.draw(Item);
+		window.draw(Text);
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::HHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
+
+		Text.setPosition(dim::HHMMBoxOffset_Helper + dim::TextHHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
+		Text.setCharacterSize(dim::TextSizeHHMM_Helper);
+		Text.setString(Minutes);
+
+		window.draw(Item);
+		window.draw(Text);
+
+
+
+		/*			Periodic															*/
+
+		if (TypeOfEvent[1]) {
+
+			Text.setPosition(dim::InfoTextOffset_Helper);
+			Text.setString("Period  -  Number of repetitions");
+			
+			window.draw(Text);
+
+
+			Item.setSize(dim::SizeOfPeriodicBox_Helper);
+			Item.setPosition(dim::PeriodicBoxOffset_Helper);
+			Item.setOutlineThickness(dim::OutlineThicknessPeriodicBox_Helper);
+
+			Text.setPosition(dim::PeriodicBoxOffset_Helper + dim::TextPeriodicBoxOffset_Helper);
+			Text.setCharacterSize(dim::TextSizePeriodic_Helper);
+			Text.setString(Period);
+
+			window.draw(Item);
+			window.draw(Text);
+
+
+			Item.setSize(sf::Vector2f(1.5 * dim::SizeOfPeriodicBox_Helper.x, dim::SizeOfPeriodicBox_Helper.y));
+			Item.setPosition(dim::PeriodicBoxOffset_Helper + dim::OffsetBetweenPeriodicBoxes_Helper);
+
+			Text.setPosition(dim::PeriodicBoxOffset_Helper + dim::OffsetBetweenPeriodicBoxes_Helper + dim::TextPeriodicBoxOffset_Helper);
+			Text.setCharacterSize(dim::TextSizePeriodic_Helper);
+			Text.setString(LastingTime);
+
+			window.draw(Item);
+			window.draw(Text);
+		}
+
+
+		/*			LongTerm															*/
+
+		if (TypeOfEvent[0]) {
+
+
+			Text.setPosition(dim::InfoTextOffset_Helper);
+			Text.setString("How many days");
+
+			window.draw(Text);
+
+			Item.setSize(sf::Vector2f(1.5 * dim::SizeOfPeriodicBox_Helper.x, dim::SizeOfPeriodicBox_Helper.y));
+			Item.setPosition(dim::PeriodicBoxOffset_Helper);
+			Item.setOutlineThickness(dim::OutlineThicknessPeriodicBox_Helper);
+			Item.setOutlineColor(sf::Color::White);
+
+			Text.setPosition(dim::PeriodicBoxOffset_Helper + dim::TextPeriodicBoxOffset_Helper);
+			Text.setCharacterSize(dim::TextSizePeriodic_Helper);
+			Text.setString(LastingTime);
+
+			window.draw(Item);
+			window.draw(Text);
+		}
+
+		/*			Person																*/
+
+		if (WithPerson) {
+
+			Text.setPosition(dim::InfoPersonTextOffset_Helper);
+			Text.setString("First name \t\t\t Second Name");
+
+			window.draw(Text);
+
+			Item.setSize(dim::SizeOfPersonBox_Helper);
+			Item.setPosition(dim::PersonBoxOffset_Helper);
+			Item.setOutlineThickness(dim::OutlineThicknessPersonBox_Helper);
+
+			Text.setPosition(dim::PersonBoxOffset_Helper + dim::TextPersonBoxOffset_Helper);
+			Text.setCharacterSize(dim::TextSizePerson_Helper);
+			Text.setString(FirstName);
+
+			window.draw(Item);
+			window.draw(Text);
+
+
+			Item.setPosition(dim::PersonBoxOffset_Helper + dim::OffsetBetweenPersonBoxes_Helper);
+
+			Text.setPosition(dim::PersonBoxOffset_Helper + dim::OffsetBetweenPersonBoxes_Helper + dim::TextPersonBoxOffset_Helper);
+			Text.setCharacterSize(dim::TextSizePerson_Helper);
+			Text.setString(SecondName);
+
+			window.draw(Item);
+			window.draw(Text);
+		}
+
 
 	}
 
-	void intersection(sf::Vector2f mousePos) {
+	bool intersection(sf::Vector2f mousePos) {
 
 		sf::RectangleShape Item;
+
+
+		Item.setSize(dim::SizeOfButton);
+		Item.setPosition(dim::ButtonOffset);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			//createEvent();
+			return true;	//	if event was created correctly
+		}
+
 
 		Item.setPosition(dim::CheckBoxOffset_Helper);
 		Item.setSize(dim::SizeOfCheckBox_Helper);
@@ -135,14 +331,18 @@ public:
 			if (TypeOfEvent[0] == true) {
 
 				TypeOfEvent[0] = !TypeOfEvent[0];
+				Period.clear();
+				LastingTime.clear();
 			}
 			else if(TypeOfEvent[0] == false) {
 
 				TypeOfEvent[0] = true;
 				TypeOfEvent[1] = false;
+				Period.clear();
+				LastingTime.clear();
 			}
 
-			return;
+			return false;
 		}
 
 		Item.setPosition(dim::CheckBoxOffset_Helper + dim::OffsetBetweekCheckBoxes_Helper);
@@ -153,13 +353,31 @@ public:
 			if (TypeOfEvent[1] == true) {
 
 				TypeOfEvent[1] = !TypeOfEvent[1];
+				Period.clear();
+				LastingTime.clear();
 			}
 			else if (TypeOfEvent[1] == false) {
 
 				TypeOfEvent[1] = true;
 				TypeOfEvent[0] = false;
+				Period.clear();
+				LastingTime.clear();
 			}
+			return false;
 		}
+
+
+		Item.setPosition(dim::CheckBoxOffset_Helper + dim::OffsetBetweekCheckBoxes_Helper + dim::OffsetBetweekCheckBoxes_Helper);
+		Item.setSize(dim::SizeOfCheckBox_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			WithPerson = !WithPerson;
+			FirstName.clear();
+			SecondName.clear();
+			return false;
+		}
+
 
 		//	Check if DescriptionBox Selected
 
@@ -172,11 +390,181 @@ public:
 				ActiveInputBox[i] = false;
 
 			ActiveInputBox[0] = true;
+			return false;
 		}
 		else {
 
 			ActiveInputBox[0] = false;
 		}
+
+
+		Item.setSize(dim::SizeOfDDMMYYYYBox_Helper);
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[1] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[1] = false;
+		}
+
+
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[2] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[2] = false;
+		}
+
+		Item.setSize(sf::Vector2f(1.5 * dim::SizeOfDDMMYYYYBox_Helper.x, dim::SizeOfDDMMYYYYBox_Helper.y));
+		Item.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper);
+		
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[3] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[3] = false;
+		}
+
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::HHMMBoxOffset_Helper);
+
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[8] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[8] = false;
+		}
+
+
+		Item.setSize(dim::SizeOfHHMMBox_Helper);
+		Item.setPosition(dim::HHMMBoxOffset_Helper + dim::OffsetBetweenHHMMBoxes_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos)) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[9] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[9] = false;
+		}
+
+
+		Item.setSize(dim::SizeOfPeriodicBox_Helper);
+		Item.setPosition(dim::PeriodicBoxOffset_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos) && TypeOfEvent[1]) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[7] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[7] = false;
+		}
+
+
+		Item.setSize(sf::Vector2f(1.5 * dim::SizeOfPeriodicBox_Helper.x, dim::SizeOfPeriodicBox_Helper.y));
+		Item.setPosition(dim::PeriodicBoxOffset_Helper + dim::OffsetBetweenPeriodicBoxes_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos) && TypeOfEvent[1]) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[6] = true;
+			return false;
+		}
+		else {
+
+			ActiveInputBox[6] = false;
+		}
+
+
+		Item.setSize(sf::Vector2f(1.5 * dim::SizeOfPeriodicBox_Helper.x, dim::SizeOfPeriodicBox_Helper.y));
+		Item.setPosition(dim::PeriodicBoxOffset_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos) && TypeOfEvent[0]) {
+
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[6] = true;
+			return false;
+		}
+		else if (TypeOfEvent[0]) {
+
+			ActiveInputBox[6] = false;
+		}
+
+
+		Item.setSize(dim::SizeOfPersonBox_Helper);
+		Item.setPosition(dim::PersonBoxOffset_Helper);
+
+		if (Item.getGlobalBounds().contains(mousePos) && WithPerson) {
+			
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[4] = true;
+			return false;
+		}
+		else if (WithPerson) {
+
+			ActiveInputBox[4] = false;
+		}
+
+		Item.setPosition(dim::PersonBoxOffset_Helper + dim::OffsetBetweenPersonBoxes_Helper);
+		
+		if (Item.getGlobalBounds().contains(mousePos) && WithPerson) {
+			
+			for (int i = 0; i < 8; i++)
+				ActiveInputBox[i] = false;
+
+			ActiveInputBox[5] = true;
+			return false;
+		}
+		else if (WithPerson) {
+
+			ActiveInputBox[5] = false;
+		}
+
+		return false;
 
 	}
 
@@ -188,8 +576,8 @@ public:
 		*	1	-	Day
 		*	2	-	Month
 		*	3	-	Year
-		*	4	-	StartingTime
-		*	5	-	EndingTime
+		*	4	-	First Name
+		*	5	-	Second Name
 		*	6	-	LastingTime
 		*	7	-	Period
 		*
@@ -197,10 +585,14 @@ public:
 
 		char add=-1;
 
-		if (c <= 35) {
+		if (c <= 25) {
 
 			add = 0;
 			add = (char)c + 65;
+		}
+		else if (c > 25 && c <= 35) {
+
+			add = (char)c + 22;
 		}
 		else if (c == 57) {
 
@@ -213,130 +605,269 @@ public:
 
 		if (ActiveInputBox[0]) {
 
+			if (Description == "Description") {
+
+				Description.clear();
+			}
+
 			if (add >=0)
-				Description += add;
+
+				if (Description.length() < 25) {
+
+					Description += add;
+				}
 			if (add == -2) {
 
-				int length = Description.length();
 				Description = Description.substr(0, Description.size() - 1);
 			}
 			if (add == -3) {
 
-				Description += " ";
+				if (Description.length() < 25) {
+
+					Description += " ";
+				}
 			}
 		}
 		if (ActiveInputBox[1]) {
 
+			if (Day == "DD") {
+				
+				Day.clear();
+			}
+
 			if (add > 26) {
-				day += add;
+				
+				if (Day.length() < 2) {
+
+					Day += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
-				day = day.substr(0, day.size() - 1);
+				Day = Day.substr(0, Day.size() - 1);
 			}
 			if (add == -3) {
 
-				day += " ";
+				if (Day.length() < 2) {
+
+					Day += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[2]) {
 
+			if (Month == "MM") {
+				
+				Month.clear();
+			}
+
 			if (add > 26) {
-				month += add;
+
+				if (Month.length() < 2) {
+
+					Month += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
-				month = month.substr(0, month.size() - 1);
+				Month = Month.substr(0, Month.size() - 1);
 			}
 			if (add == -3) {
+				
+				if (Month.length() < 2) {
 
-				month += " ";
+					Month += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[3]) {
 
+			if (Year == "YYYY") {
+
+				Year.clear();
+			}
+
 			if (add > 26) {
-				year += add;
+				
+				if (Year.length() < 4) {
+
+					Year += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
-				year = year.substr(0, year.size() - 1);
+				Year = Year.substr(0, Year.size() - 1);
 			}
 			if (add == -3) {
 
-				year += " ";
+				if (Year.length() < 4) {
+
+					Year += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[4]) {
 
 			if (add > 26) {
-				StartingTime += add;
+
+				if (FirstName.length() < 9) {
+				
+					FirstName += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
-				StartingTime = StartingTime.substr(0, StartingTime.size() - 1);
+				FirstName = FirstName.substr(0, FirstName.size() - 1);
 			}
 			if (add == -3) {
 
-				StartingTime += " ";
+				if (FirstName.length() < 9) {
+				
+					FirstName += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[5]) {
 
 			if (add > 26) {
-				EndingTime += add;
+
+				if (SecondName.length() < 9) {
+				
+					SecondName += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
-				EndingTime = EndingTime.substr(0, EndingTime.size() - 1);
+				SecondName = SecondName.substr(0, SecondName.size() - 1);
 			}
 			if (add == -3) {
 
-				EndingTime += " ";
+				if (SecondName.length() < 9) {
+				
+					SecondName += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[6]) {
 
 			if (add > 26) {
-				LastingTime += add;
+
+				if (LastingTime.length() < 4) {
+
+					LastingTime += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
 				LastingTime = LastingTime.substr(0, LastingTime.size() - 1);
 			}
 			if (add == -3) {
-
-				LastingTime += " ";
+				
+				if (LastingTime.length() < 4) {
+				
+					LastingTime += " ";
+				}
 			}
 
 		}
 		if (ActiveInputBox[7]) {
 
 			if (add > 26) {
-				Period += add;
+
+				if (Period.length() < 2) {
+				
+					Period += add;
+				}
 			}
 			if (add == -2) {
 
-				int length = Description.length();
 				Period = Period.substr(0, Period.size() - 1);
 			}
 			if (add == -3) {
+				
+				if (Period.length() < 2) {
 
-				Period += " ";
+					Period += " ";
+				}
 			}
 
 		}
+		if (ActiveInputBox[8]) {
+
+			if (add > 26) {
+
+				if (Hour == "HH") {
+					
+					Hour.clear();
+				}
+
+				if (Hour.length() < 2) {
+
+					Hour += add;
+				}
+			}
+			if (add == -2) {
+
+				Hour = Hour.substr(0, Hour.size() - 1);
+			}
+			if (add == -3) {
+
+				if (Hour.length() < 2) {
+
+					Hour += " ";
+				}
+			}
+
+		}
+		if (ActiveInputBox[9]) {
+
+			if (Minutes == "mm") {
+
+				Minutes.clear();
+			}
+
+			if (add > 26) {
+
+				if (Minutes.length() < 2) {
+
+					Minutes += add;
+				}
+			}
+			if (add == -2) {
+
+				Minutes = Minutes.substr(0, Minutes.size() - 1);
+			}
+			if (add == -3) {
+
+				if (Minutes.length() < 2) {
+
+					Minutes += " ";
+				}
+			}
+
+		}
+
+	}
+
+	bool createEvent() {
+
+		//ready = new Event()
+		
+		/*
+
+			jesli uda sie tworzenie i dodanie to niech zwroci true
+			a jesli beda podane zle dane to niech zwroci false
+			jesli cos bedziech chcial zmienic w pozwoleniach co mozna wprowadzac to w metodzie enterChar sa te rzeczy
+
+		*/
+
+
+		return false;
 	}
 
 };

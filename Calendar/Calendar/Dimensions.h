@@ -68,7 +68,7 @@ namespace dim {
 
 	/*			Add Event button										*/
 	
-	const sf::Vector2f SizeOfButton = sf::Vector2f(140, 40);
+	const sf::Vector2f SizeOfButton = sf::Vector2f(150, 40);
 	const sf::Vector2f ButtonOffset = sf::Vector2f(1080, 70);
 	const int OutlineThickness_Button = 3;
 	const sf::Vector2f TextOffset_Button = sf::Vector2f(10,3);
@@ -84,7 +84,7 @@ namespace dim {
 		const sf::Vector2f CheckBoxTextOffset_Helper = sf::Vector2f(30, 0);
 		const int CheckBoxTextSize_Helper = 17;
 
-		/*			Description Text Box									*/
+		/*			Description Text Box							*/
 		const sf::Vector2f SizeOfDescriptionBox_Helper = sf::Vector2f(600, 30);
 		const sf::Vector2f DescriptionBoxOffset_Helper = sf::Vector2f(200, 200);
 		const int OutlineThicknessDescriptionBox_Helper = 5;
@@ -92,6 +92,48 @@ namespace dim {
 		const int TextSizeDescriptionBox_Helper = 26;
 		const sf::Vector2f TextDescriptionBoxOffset_Helper = sf::Vector2f(2, -2);
 
+		/*			DD/MM/YYYY										*/
+
+		const sf::Vector2f SizeOfDDMMYYYYBox_Helper = sf::Vector2f(50, 30);
+		const sf::Vector2f DDMMYYYYBoxOffset_Helper = sf::Vector2f(200, 300);
+		const sf::Vector2f OffsetBetweenDDMMYYYYBoxes_Helper = sf::Vector2f(SizeOfDDMMYYYYBox_Helper.x + 20, 0);
+		const int OutlineThicknessDDMMYYYYBox_Helper = 5;
+
+		const int TextSizeDDMMYYYY_Helper = 26;
+		const sf::Vector2f TextDDMMYYYYBoxOffset_Helper = sf::Vector2f(2, -2);
+
+		/*			HH MM											*/
+
+		const sf::Vector2f SizeOfHHMMBox_Helper = sf::Vector2f(50, 30);
+		const sf::Vector2f HHMMBoxOffset_Helper = sf::Vector2f(500, 300);
+		const sf::Vector2f OffsetBetweenHHMMBoxes_Helper = sf::Vector2f(SizeOfDDMMYYYYBox_Helper.x + 20, 0);
+		const int OutlineThicknessHHMMBox_Helper = 5;
+
+		const int TextSizeHHMM_Helper = 26;
+		const sf::Vector2f TextHHMMBoxOffset_Helper = sf::Vector2f(2, -2);
+
+
+		/*			Periodic & LongTerm								*/
+
+		const sf::Vector2f InfoTextOffset_Helper = sf::Vector2f(200, 350);
+		const sf::Vector2f SizeOfPeriodicBox_Helper = sf::Vector2f(50, 30);
+		const sf::Vector2f PeriodicBoxOffset_Helper = sf::Vector2f(200, 400);
+		const sf::Vector2f OffsetBetweenPeriodicBoxes_Helper = sf::Vector2f(SizeOfDDMMYYYYBox_Helper.x + 20, 0);
+		const int OutlineThicknessPeriodicBox_Helper = 5;
+
+		const int TextSizePeriodic_Helper = 26;
+		const sf::Vector2f TextPeriodicBoxOffset_Helper = sf::Vector2f(2, -2);
+
+		/*			Person											*/
+
+		const sf::Vector2f InfoPersonTextOffset_Helper = sf::Vector2f(200, 450);
+		const sf::Vector2f SizeOfPersonBox_Helper = sf::Vector2f(200, 30);
+		const sf::Vector2f PersonBoxOffset_Helper = sf::Vector2f(200, 500);
+		const sf::Vector2f OffsetBetweenPersonBoxes_Helper = sf::Vector2f(SizeOfPersonBox_Helper.x + 20, 0);
+		const int OutlineThicknessPersonBox_Helper = 5;
+
+		const int TextSizePerson_Helper = 26;
+		const sf::Vector2f TextPersonBoxOffset_Helper = sf::Vector2f(2, -2);
 
 
 }

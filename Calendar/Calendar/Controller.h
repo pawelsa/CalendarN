@@ -56,6 +56,16 @@ public:
 
 	void intersection(sf::Vector2f mousePos) {
 
+		if (EventH) {
+
+			if (EventH->intersection(mousePos)) {
+
+				EventH = NULL;
+			}
+			return;
+		}
+
+
 		if (ActualCalendar->isAddNewEventPressed(mousePos)) {
 		
 			if (!EventH) {
@@ -66,11 +76,6 @@ public:
 			return;
 		}
 
-		if (EventH) {
-
-			EventH->intersection(mousePos);
-			return;
-		}
 
 		if (ActualCalendar) {
 
