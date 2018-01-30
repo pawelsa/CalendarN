@@ -58,7 +58,9 @@ public:
 
 	EventHelper(std::vector<Year*>* yearList)
 	{
+		
 		YearList = yearList;
+		
 		TypeOfEvent[0] = false;
 		TypeOfEvent[1] = false;
 
@@ -879,20 +881,23 @@ public:
 			int nrStartingTime = std::stoi(this->StartingTime);//todo
 			int nrEndingTime = std::stoi(this->EndingTime); //todo
 
+			int actualDay = nrDay - 1;
+			int actualMonth = nrMonth - 1;
+			int actualYear = nrYear - 2017;
+
 			if (nrDay >= 1 && nrDay <= 30 && nrMonth >= 1 && nrMonth <= 12 && nrYear >= 2017 && nrYear <= 2020)
 			{
 				if (TypeOfEvent[0])
 				{
 					int nrLastingTime = std::stoi(this->LastingTime);
-					int actualDay = nrDay - 1;
-					int actualMonth = nrMonth - 1;
+					
 
-					auto lastDay = YearList->at(1)->Months.at(actualMonth)->Days.back();
+					auto lastDay = YearList->at(actualYear)->Months.at(actualMonth)->Days.back();
 					Event* eventToAdd = new LongTermEvent(nrStartingTime, nrEndingTime, Description, Person(), nrLastingTime);
 					for (int i = 0; i < nrLastingTime; i++)
 					{
-						YearList->at(1)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
-						if (YearList->at(1)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
+						YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
+						if (YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
 						{
 							actualMonth++;
 							actualDay = 0;
@@ -909,14 +914,13 @@ public:
 					int nrLastingTime = std::stoi(this->LastingTime);
 					int nrPeroidTime = std::stoi(this->Period);
 
-					int actualDay = nrDay - 1;
-					int actualMonth = nrMonth - 1;
+					
 
-					auto lastDay = YearList->at(1)->Months.at(actualMonth)->Days.back();
+					auto lastDay = YearList->at(actualYear)->Months.at(actualMonth)->Days.back();
 					
 					Event* eventToAdd = new PeriodicEvent(nrStartingTime, nrEndingTime, Description, Person(), nrPeroidTime, nrLastingTime);
 
-					auto nrOfDays = YearList->at(1)->Months.at(actualMonth)->Days.size();
+					auto nrOfDays = YearList->at(actualYear)->Months.at(actualMonth)->Days.size();
 
 					for (int i = 0; i < nrLastingTime; i++)
 					{
@@ -926,9 +930,9 @@ public:
 							actualDay = actualDay - nrOfDays;
 						}
 
-						YearList->at(1)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
+						YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
 
-						if (YearList->at(1)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
+						if (YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
 						{
 							actualMonth++;
 							actualDay = 0;
@@ -943,7 +947,7 @@ public:
 				else
 				{
 					Event* eventToAdd = new Event(nrStartingTime, nrEndingTime, Description, Person());
-					YearList->at(0)->Months.at(nrMonth - 1)->Days.at(nrDay - 1)->AddEvent(eventToAdd);
+					YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
 				}
 
 				return true;
