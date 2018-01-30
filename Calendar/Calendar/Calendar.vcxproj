@@ -145,6 +145,7 @@
     <ClInclude Include="Month.h" />
     <ClInclude Include="PeriodicEvent.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Week.h" />
     <ClInclude Include="Year.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

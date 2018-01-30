@@ -12,6 +12,8 @@ class Month
 	const int Number;
 	const int FirstDayOfMonth;
 
+	int Week = -1;	//	Only to display week
+
 	int NumberOfDays(int monthNumber, int year)
 	{
 		// January
@@ -81,6 +83,153 @@ class Month
 			year / 400 + t[month - 1] + day) % 7;
 	}
 
+	void displayWeek() {
+
+
+		sf::Text Text;
+
+		Text.setFont(dim::font);
+		Text.setFillColor(sf::Color::White);
+		Text.setCharacterSize(dim::TextSize_Month);
+
+
+		for (int i = 0; i < 7; i++) {
+
+			Text.setPosition(dim::DayNamesOffset + sf::Vector2f(i*dim::OffestBetweenItems_Month.x, 0));
+			Text.setString(dim::DayNames.at(i));
+
+			window.draw(Text);
+		}
+
+
+		int CountNumberOfDays = Week == 0 ? 1 : (Week - 1) * 7 + (8 - FirstDayOfMonth);
+
+		sf::RectangleShape Item;
+
+		Item.setSize(dim::SizeOfItem_Week);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineThickness(dim::OutlineThickness_Week);
+
+		for (int X = 0; (X < 7 && CountNumberOfDays <= NumberOfDaysInMonth); X++) {
+
+			Item.setSize(dim::SizeOfItem_Week);
+
+			if ((X >= FirstDayOfMonth && Week == 0) || Week > 0) {
+
+
+				if (Days.at(CountNumberOfDays - 1)->HaveAnyEvent()) {
+
+					std::vector<Event> EventList = Days.at(CountNumberOfDays - 1)->returnEventList();
+
+					if (!EventList.empty()) {
+
+						sf::RectangleShape ItemE;
+						sf::Text TextE, TextEE;
+
+						TextE.setFont(dim::font);
+						TextE.setCharacterSize(dim::EventTextSize_Week);
+						TextE.setFillColor(sf::Color::Black);
+
+						TextEE.setFont(dim::font);
+						TextEE.setCharacterSize(dim::EventTextSize_Week);
+						TextEE.setFillColor(sf::Color::Black);
+
+
+						ItemE.setSize(dim::SizeOfEventTextBox_Week);
+						ItemE.setFillColor(sf::Color::Green);
+
+						sf::Vector2f position;
+
+						for (int i = 0; i < EventList.size(); i++) {
+
+							position = dim::ItemOffset_Week + sf::Vector2f(X*dim::OffestBetweenItems_Week.x + dim::EventTextOffset_Week.x,
+								(i + 1)*dim::SizeOfEventTextBox_Week.y + (i + 1)*dim::EventTextOffset_Week.y);
+
+							ItemE.setPosition(position);
+
+							TextE.setPosition(position + dim::TextOffset_Day);
+							TextE.setString(EventList.at(i).DurationDescription());
+
+
+							TextEE.setPosition(position + dim::TextNameEventOffset_Week);
+							TextEE.setString(EventList.at(i).EventDescription());
+
+							window.draw(ItemE);
+							window.draw(TextE);
+							window.draw(TextEE);
+
+						}
+
+
+					}
+
+				}
+
+
+				sf::Vector2f position = sf::Vector2f(dim::ItemOffset_Week.x + X * (dim::OffestBetweenItems_Week.x),
+					dim::ItemOffset_Week.y);
+
+
+				Text.setString(std::to_string(CountNumberOfDays));
+				Item.setPosition(position);
+				Text.setPosition(position + dim::TextOffset_Month);
+				CountNumberOfDays++;
+
+				window.draw(Item);
+				window.draw(Text);
+			}
+		}
+
+
+		Item.setSize(dim::SizeOfButton);
+		Item.setOutlineThickness(dim::OutlineThickness_Button);
+		Item.setPosition(dim::ButtonOffset);
+		Item.setFillColor(sf::Color::Transparent);
+		Item.setOutlineColor(sf::Color::White);
+
+		Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+		Text.setFillColor(sf::Color::White);
+		Text.setCharacterSize(dim::TextSize_Calendar);
+		Text.setString("Add Event");
+
+		window.draw(Item);
+		window.draw(Text);
+
+	}
+
+
+	Day* doTheyIntersect_Week(sf::Vector2f mPosition) {
+
+
+		int CountNumberOfDays = FirstDayOfMonth + Week * 7;
+
+		sf::RectangleShape Item;
+
+		Item.setSize(dim::SizeOfItem_Week);
+
+		for (int X = 0; (X < 7 && CountNumberOfDays <= NumberOfDaysInMonth); X++) {
+
+
+			if ((X >= FirstDayOfMonth && Week == 0) || Week > 0) {
+
+
+
+				sf::Vector2f position = sf::Vector2f(dim::ItemOffset_Week.x + X * (dim::OffestBetweenItems_Week.x),
+					dim::ItemOffset_Week.y);
+
+				Item.setPosition(position);
+
+				if (Item.getGlobalBounds().contains(mPosition)) {
+
+					return Days.at(CountNumberOfDays);
+				}
+				CountNumberOfDays++;
+			}
+		}
+
+		return NULL;
+	}
+
 public:
 
 
@@ -110,6 +259,12 @@ public:
 	void displayMonth() {
 
 
+		if (Week != -1) {
+
+			displayWeek();
+			return;
+		}
+
 		sf::RectangleShape Item;
 
 		Item.setSize(dim::SizeOfItem_Month);
@@ -117,28 +272,29 @@ public:
 		Item.setOutlineThickness(dim::OutlineThickness_Month);
 
 
-		sf::Text NumberOfMonthsDay_Text;
+		sf::Text Text;
 
-		NumberOfMonthsDay_Text.setFont(dim::font);
-		NumberOfMonthsDay_Text.setFillColor(sf::Color::White);
-		NumberOfMonthsDay_Text.setCharacterSize(dim::TextSize_Month);
+		Text.setFont(dim::font);
+		Text.setFillColor(sf::Color::White);
+		Text.setCharacterSize(dim::TextSize_Month);
 
 
 		for (int i = 0; i < 7; i++) {
 
-			NumberOfMonthsDay_Text.setPosition(dim::DayNamesOffset + sf::Vector2f(i*dim::OffestBetweenItems_Month.x, 0));
-			NumberOfMonthsDay_Text.setString(dim::DayNames.at(i));
+			Text.setPosition(dim::DayNamesOffset + sf::Vector2f(i*dim::OffestBetweenItems_Month.x, 0));
+			Text.setString(dim::DayNames.at(i));
 
-			window.draw(NumberOfMonthsDay_Text);
+			window.draw(Text);
 		}
 
 
 		int CountNumberOfDays = 1;
-		//cos tu trzeba zmienic bo o jeden dzien za pozno podswietla okienko z eventem
 
 		for (int Y = 0; Y * 7 <= NumberOfDaysInMonth; Y++) {
 
 			for (int X = 0; (X < 7 && CountNumberOfDays <= NumberOfDaysInMonth); X++) {
+
+				Item.setSize(dim::SizeOfItem_Month);
 
 				if ((X >= FirstDayOfMonth && Y == 0) || Y > 0) {
 
@@ -157,15 +313,21 @@ public:
 						dim::ItemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y));
 
 					Item.setPosition(position);
-					NumberOfMonthsDay_Text.setPosition(position + dim::TextOffset_Month);
+					Text.setPosition(position + dim::TextOffset_Month);
 
-					NumberOfMonthsDay_Text.setString(std::to_string(CountNumberOfDays));
+					Text.setString(std::to_string(CountNumberOfDays));
 					CountNumberOfDays++;
 
 					window.draw(Item);
-					window.draw(NumberOfMonthsDay_Text);
+					Item.setFillColor(sf::Color::Transparent);
+					window.draw(Text);
 				}
 			}
+
+			Item.setSize(sf::Vector2f(dim::SizeOfItem_Month.x / 2, dim::SizeOfItem_Month.y));
+			Item.setPosition(sf::Vector2f(dim::ItemOffset_Month.x - dim::OffestBetweenItems_Month.x/2, dim::ItemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y)));
+
+			window.draw(Item);
 
 		}
 
@@ -176,19 +338,24 @@ public:
 		Item.setFillColor(sf::Color::Transparent);
 		Item.setOutlineColor(sf::Color::White);
 
-		NumberOfMonthsDay_Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
-		NumberOfMonthsDay_Text.setFillColor(sf::Color::White);
-		NumberOfMonthsDay_Text.setCharacterSize(dim::TextSize_Calendar);
-		NumberOfMonthsDay_Text.setString("Add Event");
+		Text.setPosition(dim::ButtonOffset + dim::TextOffset_Button);
+		Text.setFillColor(sf::Color::White);
+		Text.setCharacterSize(dim::TextSize_Calendar);
+		Text.setString("Add Event");
 
 		window.draw(Item);
-		window.draw(NumberOfMonthsDay_Text);
+		window.draw(Text);
 
 
 	}
 
 
 	Day* doTheyIntersect_Month(sf::Vector2f mPosition) {
+
+		if (Week != -1) {
+
+			return doTheyIntersect_Week(mPosition);
+		}
 
 		sf::RectangleShape Item;
 
@@ -218,11 +385,18 @@ public:
 				}
 			}
 
+			Item.setSize(sf::Vector2f(dim::SizeOfItem_Month.x / 2, dim::SizeOfItem_Month.y));
+			Item.setPosition(sf::Vector2f(dim::ItemOffset_Month.x - dim::OffestBetweenItems_Month.x / 2, dim::ItemOffset_Month.y + Y * (dim::OffestBetweenItems_Month.y)));
+
+			if (Item.getGlobalBounds().contains(mPosition)) {
+
+				Week = Y;
+				return NULL;
+			}
 		}
 
 		return NULL;
 	}
-
 
 
 	bool isAddNewEventPressed(sf::Vector2f mPosition) {
@@ -238,6 +412,19 @@ public:
 		}
 
 		return false;
+	}
+
+	bool moveBack() {
+
+		if (Week == -1) {
+
+			return true;
+		}
+		else {
+
+			Week = -1;
+			return false;
+		}
 	}
 
 	~Month() {};
