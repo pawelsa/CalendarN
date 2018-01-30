@@ -53,10 +53,12 @@ public:
 
 				window.draw(Item);
 				window.draw(NumberOfMonths_Text);
+
+				int CountNumberOfDays = 1;
+				//cos tu trzeba zmienic bo o jeden dzien za pozno podswietla okienko z eventem
+
 			}
-
 		}
-
 
 		Item.setSize(dim::SizeOfButton);
 		Item.setOutlineThickness(dim::OutlineThickness_Button);
