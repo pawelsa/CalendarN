@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <iostream>
+#include "PeriodicEvent.h"
 #include <vector>
 
 extern sf::RenderWindow window;
@@ -10,21 +11,27 @@ extern sf::RenderWindow window;
 class Day
 {
 private:
-	bool IsHourFree(Event eventToAdd)
+	bool IsHourFree(Event* eventToAdd)
 	{
-		for (auto &temp : EventList)
+		if (EventList.size() == 0)
+			return true;
+		else
 		{
-			auto startingTime = temp.GetStartingTime();
-			auto endingTime = temp.GetEndingTime();
+			for (auto &temp : EventList)
+			{
+				auto startingTime = temp->GetStartingTime();
+				auto endingTime = temp->GetEndingTime();
 
-			if ((eventToAdd.GetStartingTime() >= startingTime && eventToAdd.GetStartingTime() <= endingTime) || (eventToAdd.GetEndingTime() >= startingTime && eventToAdd.GetEndingTime() <= endingTime))
-				return false;
-			else
-				return true;
+				if ((eventToAdd->GetStartingTime() >= startingTime && eventToAdd->GetStartingTime() <= endingTime) || (eventToAdd->GetEndingTime() >= startingTime && eventToAdd->GetEndingTime() <= endingTime))
+					return false;
+				else
+					return true;
+			}
 		}
+		
 	}
 
-	std::vector<Event> EventList;
+	std::vector<Event*> EventList;
 	const std::string NameOfDay;
 	const int DayNumber;
 
@@ -40,9 +47,9 @@ public:
 		
 		if (dayNumber == 5) {
 
-			Event eventToAdd = Event(12, 13, "test", Person("ee", "bb"));
+			Event* eventToAdd = new Event(12, 13, "test", Person("ee", "bb"));
 			AddEvent(eventToAdd);
-			Event eventToAd = Event(10, 11, "test1", Person("ee", "bb"));
+			Event* eventToAd = new PeriodicEvent(10,11,"test2",Person("aaa","bbb"),3,22);
 			AddEvent(eventToAd);
 		}
 	
@@ -53,7 +60,7 @@ public:
 	~Day() { }
 
 
-	void AddEvent(Event eventToAdd)
+	void AddEvent(Event* eventToAdd)
 	{
 		try
 		{
@@ -69,7 +76,7 @@ public:
 		}
 	};
 
-	void RemoveEvent(Event eventToRemove)
+	void RemoveEvent(Event* eventToRemove)
 	{
 		auto tempList = this->EventList;
 		try
@@ -137,8 +144,8 @@ public:
 				EventTime.setPosition(position + dim::TextOffset_Day);
 				EventName.setPosition(position + dim::TextOffset_Day + dim::TextNameEventOffset_Day);
 
-				EventTime.setString(EventList.at(i).DurationDescription());
-				EventName.setString(EventList.at(i).EventDescription());
+				EventTime.setString(EventList.at(i)->DurationDescription());
+				EventName.setString(EventList.at(i)->EventDescription());
 
 				window.draw(Item);
 				window.draw(EventTime);

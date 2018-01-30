@@ -12,6 +12,7 @@ public:
 		this->Period = period;
 		this->PeriodLasting = periodlasting;
 	}
+	PeriodicEvent() {};
 
 	~PeriodicEvent() {};
 };

@@ -70,7 +70,7 @@ public:
 		
 			if (!EventH) {
 			
-				EventH = new EventHelper();
+				EventH = new EventHelper(ActualCalendar->GetYearList());
 			}
 
 			return;

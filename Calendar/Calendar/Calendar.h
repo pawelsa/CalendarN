@@ -48,6 +48,11 @@ public:
 
 	}
 
+	std::vector<Year*>* GetYearList()
+	{
+		return &YearList;
+	}
+
 
 	void display_Calendar() {
 
@@ -149,7 +154,6 @@ public:
 
 		return NULL;
 	}
-
 
 
 	bool isAddNewEventPressed(sf::Vector2f mPosition) {
