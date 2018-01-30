@@ -2,6 +2,11 @@
 #include <SFML\Graphics.hpp>
 #include "Dimensions.h"
 #include "Person.h"
+#include <string>
+#include <algorithm>
+#include <vector>
+#include "LongTermEvent.h"
+#include "Year.h"
 
 extern sf::RenderWindow window;
 
@@ -9,8 +14,12 @@ class EventHelper {
 
 
 	//	Event
-	std::string Day = "DD", Month = "MM", Year = "YYYY", Hour = "HH", Minutes = "mm", FirstName, SecondName;
+	std::string Day = "DD", Month = "MM", MYear = "YYYY", Hour = "HH", Minutes = "mm", FirstName, SecondName;
 	std::string Description = "Description";
+
+
+	std::string StartingTime = "00"; //wczytywanie tego jeszcze
+	std::string EndingTime = "00"; // wczytywanie tego jeszcze 
 
 	Person Man;		//	nie wiem co z tym
 
@@ -25,6 +34,8 @@ class EventHelper {
 	bool WithPerson = false;
 
 	Event *ready = NULL;
+
+	std::vector<Year*>* YearList;
 
 	/*		Active input box			
 	*
@@ -43,8 +54,13 @@ class EventHelper {
 
 public:
 
-	EventHelper() {
+	EventHelper() {	};
 
+	EventHelper(std::vector<Year*>* yearList)
+	{
+		
+		YearList = yearList;
+		
 		TypeOfEvent[0] = false;
 		TypeOfEvent[1] = false;
 
@@ -185,7 +201,7 @@ public:
 
 		Text.setPosition(dim::DDMMYYYYBoxOffset_Helper + dim::TextDDMMYYYYBoxOffset_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper + dim::OffsetBetweenDDMMYYYYBoxes_Helper);
 		Text.setCharacterSize(dim::TextSizeDDMMYYYY_Helper);
-		Text.setString(Year);
+		Text.setString(MYear);
 
 		window.draw(Item);
 		window.draw(Text);
@@ -317,7 +333,7 @@ public:
 
 		if (Item.getGlobalBounds().contains(mousePos)) {
 
-			//createEvent();
+			createEvent();
 			return true;	//	if event was created correctly
 		}
 
@@ -684,27 +700,27 @@ public:
 		}
 		if (ActiveInputBox[3]) {
 
-			if (Year == "YYYY") {
+			if (MYear == "YYYY") {
 
-				Year.clear();
+				MYear.clear();
 			}
 
 			if (add > 26) {
 				
-				if (Year.length() < 4) {
+				if (MYear.length() < 4) {
 
-					Year += add;
+					MYear += add;
 				}
 			}
 			if (add == -2) {
 
-				Year = Year.substr(0, Year.size() - 1);
+				MYear = MYear.substr(0, MYear.size() - 1);
 			}
 			if (add == -3) {
 
-				if (Year.length() < 4) {
+				if (MYear.length() < 4) {
 
-					Year += " ";
+					MYear += " ";
 				}
 			}
 
@@ -854,20 +870,98 @@ public:
 
 	}
 
-	bool createEvent() {
+	bool createEvent() 
+	{
 
-		//ready = new Event()
-		
-		/*
+		try
+		{
+			int nrDay = std::stoi(this->Day);
+			int nrMonth = std::stoi(this->Month);
+			int nrYear = std::stoi(this->MYear);
+			int nrStartingTime = std::stoi(this->StartingTime);//todo
+			int nrEndingTime = std::stoi(this->EndingTime); //todo
 
-			jesli uda sie tworzenie i dodanie to niech zwroci true
-			a jesli beda podane zle dane to niech zwroci false
-			jesli cos bedziech chcial zmienic w pozwoleniach co mozna wprowadzac to w metodzie enterChar sa te rzeczy
+			int actualDay = nrDay - 1;
+			int actualMonth = nrMonth - 1;
+			int actualYear = nrYear - 2017;
 
-		*/
+			if (nrDay >= 1 && nrDay <= 30 && nrMonth >= 1 && nrMonth <= 12 && nrYear >= 2017 && nrYear <= 2020)
+			{
+				if (TypeOfEvent[0])
+				{
+					int nrLastingTime = std::stoi(this->LastingTime);
+					
 
+					auto lastDay = YearList->at(actualYear)->Months.at(actualMonth)->Days.back();
+					Event* eventToAdd = new LongTermEvent(nrStartingTime, nrEndingTime, Description, Person(), nrLastingTime);
+					for (int i = 0; i < nrLastingTime; i++)
+					{
+						YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
+						if (YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
+						{
+							actualMonth++;
+							actualDay = 0;
+						}
+						else
+						{
+							actualDay++;
+						}
+					}
+				}
+				//periodic
+				else if (TypeOfEvent[1])
+				{
+					int nrLastingTime = std::stoi(this->LastingTime);
+					int nrPeroidTime = std::stoi(this->Period);
 
-		return false;
+					
+
+					auto lastDay = YearList->at(actualYear)->Months.at(actualMonth)->Days.back();
+					
+					Event* eventToAdd = new PeriodicEvent(nrStartingTime, nrEndingTime, Description, Person(), nrPeroidTime, nrLastingTime);
+
+					auto nrOfDays = YearList->at(actualYear)->Months.at(actualMonth)->Days.size();
+
+					for (int i = 0; i < nrLastingTime; i++)
+					{
+						if (nrOfDays < actualDay)
+						{
+							actualMonth++;
+							actualDay = actualDay - nrOfDays;
+						}
+
+						YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
+
+						if (YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay) == lastDay)
+						{
+							actualMonth++;
+							actualDay = 0;
+						}
+						else
+						{
+							actualDay = actualDay + nrPeroidTime;
+						}
+					}
+				}
+				//normal
+				else
+				{
+					Event* eventToAdd = new Event(nrStartingTime, nrEndingTime, Description, Person());
+					YearList->at(actualYear)->Months.at(actualMonth)->Days.at(actualDay)->AddEvent(eventToAdd);
+				}
+
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}			
+		}
+		catch (const std::exception& ex)
+		{
+			std::cout << ex.what();
+			return false;
+		}
 	}
-
 };

@@ -6,7 +6,6 @@ extern sf::RenderWindow window;
 
 class Month
 {
-	std::vector<Day*> Days;
 	const std::string Name;
 	const int NumberOfDaysInMonth;
 	const int Number;
@@ -231,6 +230,7 @@ class Month
 	}
 
 public:
+	std::vector<Day*> Days;
 
 
 	Month(int monthNumber, int year) :Name(dim::MonthNames.at(monthNumber)), Number(monthNumber), // monthNumber+1??

@@ -9,9 +9,10 @@ extern sf::RenderWindow window;
 class Year {
 
 	const int YearNumber;
-	std::vector<Month*> Months;
 
 public:
+	std::vector<Month*> Months;
+
 	Year(int mYear) :YearNumber(mYear) {
 		for (int i = 0; i < 12; i++)
 		{
