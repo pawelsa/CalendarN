@@ -66,15 +66,15 @@ public:
 		NumberOfYears_Text.setFillColor(sf::Color::White);
 
 
-		int MaxAmountOfItemsOnScreen = (window.getSize().y / dim::SizeOfItem_Calendar.y) - 1;
+		/*int MaxAmountOfItemsOnScreen = (window.getSize().y / dim::SizeOfItem_Calendar.y) - 1;*/
 				
 		sf::Color to_alpha = sf::Color::White;
 		to_alpha.a = 135;
 
 
-		for (int i = 0; i <= MaxAmountOfItemsOnScreen; i++) {
+		for (int i = 0; i < 3 /*MaxAmountOfItemsOnScreen*/; i++) {
 
-			sf::Vector2f position = dim::ItemOffset_Calendar + sf::Vector2f(0, i*dim::OffsetBetweenItems_Calendar.y);
+			sf::Vector2f position = dim::ItemOffset_Calendar + sf::Vector2f(i*dim::OffsetBetweenItems_Calendar.x,0);
 
 			Item.setPosition(position);
 
@@ -82,7 +82,7 @@ public:
 			NumberOfYears_Text.setString(std::to_string(BeginYear + i));
 
 
-			if (i == 0 || i == MaxAmountOfItemsOnScreen) {
+			if (i == 0 || i == 2 /*MaxAmountOfItemsOnScreen*/) {
 
 				NumberOfYears_Text.setFillColor(to_alpha);
 				Item.setOutlineColor(to_alpha);
@@ -109,7 +109,7 @@ public:
 
 		window.draw(Item);
 
-		//Konrad's button xD
+		//AddEvent Button 
 
 		Item.setSize(dim::SizeOfButton);
 		Item.setOutlineThickness(dim::OutlineThickness_Button);
@@ -135,7 +135,7 @@ public:
 
 		for (int i = 0; i <= YearList.size(); i++) {
 
-			position = dim::ItemOffset_Calendar + sf::Vector2f(0, i*dim::OffsetBetweenItems_Calendar.y);
+			position = dim::ItemOffset_Calendar + sf::Vector2f(i*dim::OffsetBetweenItems_Calendar.x,0);
 			
 			Item.setPosition(position);
 

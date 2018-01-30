@@ -29,10 +29,10 @@ namespace dim {
 
 	/*			Calendar class											*/
 
-	const sf::Vector2f SizeOfItem_Calendar = sf::Vector2f(150, 150);
-	const sf::Vector2f ItemOffset_Calendar = sf::Vector2f(120, 10);
-	const sf::Vector2f OffsetBetweenItems_Calendar = sf::Vector2f(0, 170);
-	const sf::Vector2f TextOffset_Calendar = sf::Vector2f(25, 25);
+	const sf::Vector2f SizeOfItem_Calendar = sf::Vector2f(160, 160);
+	const sf::Vector2f ItemOffset_Calendar = sf::Vector2f(380, 220);
+	const sf::Vector2f OffsetBetweenItems_Calendar = sf::Vector2f(200,0);
+	const sf::Vector2f TextOffset_Calendar = sf::Vector2f(50, 60);
 	const int ThicknessOfBlackOutliner = 100;
 	const int TextSize_Calendar = 25;
 
@@ -43,7 +43,7 @@ namespace dim {
 	const int OutlineThickness_Year = 5;
 	const sf::Vector2f OffsetBetweenItems_Year = SizeOfItem_Year + sf::Vector2f(OutlineThickness_Year, OutlineThickness_Year);
 	const sf::Vector2f TextOffset_Year = sf::Vector2f(18, 18);
-	const int TextSize_Year = 17;
+	const int TextSize_Year = 22;
 
 	/*			Month class												*/
 
