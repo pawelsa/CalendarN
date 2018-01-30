@@ -1,6 +1,7 @@
 #pragma once
 #include "Calendar.h"
 #include "EventHelper.h"
+#include "FileHelper.h"
 
 
 class Controller {
@@ -10,6 +11,8 @@ class Controller {
 	Month *ActualMonth;
 	Day *ActualDay;
 	EventHelper *EventH;
+	FileHelper* FHelper;
+	
 
 
 public:
@@ -17,7 +20,8 @@ public:
 	Controller() :ActualYear(NULL) , ActualMonth(NULL), ActualDay(NULL), EventH(NULL) {
 
 		ActualCalendar = new Calendar();	// to bedzie zamiast maina
-
+		FHelper = new FileHelper(ActualCalendar->GetYearList());
+		FHelper->LoadData();
 	}
 
 	void display() {
@@ -143,5 +147,10 @@ public:
 
 			EventH->enterChar(c);
 		}
+	}
+
+	void SaveData()
+	{
+		FHelper->SaveData();
 	}
 };

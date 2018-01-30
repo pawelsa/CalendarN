@@ -115,4 +115,9 @@ public:
 		return false;
 	}
 
+	int GetYearNumber()
+	{
+		return this->YearNumber;
+	}
+
 };

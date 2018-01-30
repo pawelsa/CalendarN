@@ -43,22 +43,15 @@ private:
 public:
 
 
-	Day(int dayNumber): NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { 
-		
-		if (dayNumber == 5) {
-
-			Event* eventToAdd = new Event(12, 13, "test", Person("ee", "bb"));
-			AddEvent(eventToAdd);
-			Event* eventToAd = new PeriodicEvent(10,11,"test2",Person("aaa","bbb"),3,22);
-			AddEvent(eventToAd);
-		}
-	
-	
-	};
+	Day(int dayNumber) : NameOfDay(dim::DayNames.at(dayNumber)), DayNumber(dayNumber) { 	};
 
 
 	~Day() { }
 
+	std::vector<Event*> GetEvents()
+	{
+		return this->EventList;
+	}
 
 	void AddEvent(Event* eventToAdd)
 	{

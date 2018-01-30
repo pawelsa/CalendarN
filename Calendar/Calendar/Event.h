@@ -54,4 +54,9 @@ public:
 	{
 		return EndingTime;
 	}
+
+	Person GetPerson()
+	{
+		return Man;
+	}
 };

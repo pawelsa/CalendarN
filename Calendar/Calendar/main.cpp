@@ -19,7 +19,10 @@ int main() {
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
+				newController->SaveData();
 				window.close();
+			}
 
 
 			if (event.type == sf::Event::MouseButtonPressed) {
@@ -51,6 +54,10 @@ int main() {
 
 		window.display();
 	}
+
+
+	
+
 
 	return 0;
 

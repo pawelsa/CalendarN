@@ -41,7 +41,7 @@ public:
 		BeginYear = aTime->tm_year + 1899;
 
 
-		for (int i = BeginYear; i < BeginYear+4; i++) {
+		for (int i = BeginYear; i < BeginYear+3; i++) {
 
 			YearList.push_back(new Year(i));
 		}

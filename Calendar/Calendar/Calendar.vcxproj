@@ -78,6 +78,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\SFML\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/std:c++latest %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\SFML\lib</AdditionalLibraryDirectories>
@@ -141,6 +142,7 @@
     <ClInclude Include="Dimensions.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventHelper.h" />
+    <ClInclude Include="FileHelper.h" />
     <ClInclude Include="LongTermEvent.h" />
     <ClInclude Include="Month.h" />
     <ClInclude Include="PeriodicEvent.h" />

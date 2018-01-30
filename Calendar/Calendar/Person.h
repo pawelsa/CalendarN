@@ -22,4 +22,13 @@ public:
 
 		return false;
 	}
+
+	std::string GetFirstName()
+	{
+		return FirstName;
+	}
+	std::string GetLastName()
+	{
+		return LastName;
+	}
 };
